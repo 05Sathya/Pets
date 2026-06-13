@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Best For Pets — Grooming, Food & Everything Your Pet Needs</title>
+<link rel="icon" type="image/png" href="assets/images/logo.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="assets/images/logo.png"/>
+<link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.png"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{cherry:'#E63946','cherry-dark':'#C42B38',ink:'#23262F',cream:'#FFF6EC','cream-deep':'#FBEBDB',blush:'#FFE3D2',teal:'#0E9594',amber:'#FFB627'},fontFamily:{display:['Fraunces','serif']}}}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/animations.js"></script>
+<script>locationGate();</script>
+</head>
+<body>
+<div id="app-header"></div>
+
+<main class="pt-24 sm:pt-16 pb-24 lg:pb-0">
+
+  <!-- ============ HERO (split) ============ -->
+  <section class="relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 lg:px-8 pt-8 lg:pt-14 pb-10 grid lg:grid-cols-12 gap-8 items-center">
+      <div class="lg:col-span-6 relative z-10">
+        <span class="inline-flex items-center gap-2 bg-white border border-cherry/20 text-cherry text-xs font-extrabold px-4 py-2 rounded-full fade-in-up"><i data-lucide="sparkles" class="w-3.5 h-3.5"></i>Chennai's trusted pet care family since day one</span>
+        <h1 class="font-display font-black text-4xl sm:text-5xl xl:text-6xl text-ink leading-[1.05] mt-5 fade-in-up" style="animation-delay:.1s">
+          Everything your <span class="grad-text">best friend</span> needs, at your door in <span class="relative inline-block">45 mins<svg class="absolute -bottom-2 left-0 w-full" height="10" viewBox="0 0 200 10" fill="none"><path d="M2 7 Q 50 1 100 6 T 198 4" stroke="#FFB627" stroke-width="5" stroke-linecap="round"/></svg></span>
+        </h1>
+        <p class="text-ink/60 font-semibold mt-5 max-w-md fade-in-up" style="animation-delay:.2s">Premium food, toys, grooming & vet care from 7 stores across Chennai. Open daily 8 AM – 10 PM.</p>
+        <div class="flex flex-wrap gap-3 mt-7 fade-in-up" style="animation-delay:.3s">
+          <a href="category.html" class="btn-shine bg-cherry hover:bg-cherry-dark text-white font-extrabold rounded-full px-7 py-4 flex items-center gap-2 transition-all active:scale-95 shadow-xl shadow-cherry/30">Shop now <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+          <a href="#services" class="bg-white border-2 border-ink/10 hover:border-teal text-ink font-extrabold rounded-full px-7 py-4 flex items-center gap-2 transition-colors"><i data-lucide="scissors" class="w-4 h-4 text-teal"></i>Book a service</a>
+        </div>
+        <div class="flex items-center gap-6 mt-8 fade-in-up" style="animation-delay:.4s">
+          <div><p class="font-display font-black text-2xl text-ink" data-count="4.8">0</p><p class="text-[11px] font-bold text-ink/50">⭐ rating</p></div>
+          <div class="w-px h-9 bg-ink/10"></div>
+          <div><p class="font-display font-black text-2xl text-ink"><span data-count="2300">0</span>+</p><p class="text-[11px] font-bold text-ink/50">happy reviews</p></div>
+          <div class="w-px h-9 bg-ink/10"></div>
+          <div><p class="font-display font-black text-2xl text-ink" data-count="7">0</p><p class="text-[11px] font-bold text-ink/50">Chennai stores</p></div>
+        </div>
+      </div>
+      <div class="lg:col-span-6 relative">
+        <div class="absolute inset-0 bg-gradient-to-br from-cherry to-amber blob opacity-90"></div>
+        <div class="absolute -inset-6 bg-amber/20 blob" style="animation-delay:-3s"></div>
+        <img src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=984&h=504&fit=crop" alt="Happy dog with parent"
+             class="relative z-10 w-full aspect-[984/504] object-cover rounded-[2.5rem] shadow-2xl shadow-cherry/30 border-4 border-white"/>
+        <div class="absolute z-20 -bottom-4 left-4 sm:left-8 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-3 float-slow">
+          <span class="w-10 h-10 rounded-full bg-blush flex items-center justify-center"><i data-lucide="truck" class="w-5 h-5 text-cherry"></i></span>
+          <div><p class="text-xs font-extrabold text-ink">30–45 min delivery</p><p class="text-[10px] font-bold text-ink/50">Free above ₹999</p></div>
+        </div>
+        <div class="absolute z-20 -top-3 right-4 sm:right-8 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-2.5 float-slower">
+          <span class="text-2xl">🩺</span>
+          <div><p class="text-xs font-extrabold text-ink">In-store vet care</p><p class="text-[10px] font-bold text-ink/50">No hospital queues</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MARQUEE STRIP ============ -->
+  <div class="bg-ink py-3.5 -rotate-1 scale-[1.02] my-4 shadow-lg">
+    <div class="marquee"><div class="marquee-track gap-10 text-cream text-sm font-extrabold tracking-wide">
+      <span class="flex items-center gap-2 px-2">🐾 30–45 MIN DELIVERY</span><span class="text-amber">★</span>
+      <span class="flex items-center gap-2 px-2">FREE DELIVERY ABOVE ₹999</span><span class="text-amber">★</span>
+      <span class="flex items-center gap-2 px-2">7 STORES ACROSS CHENNAI</span><span class="text-amber">★</span>
+      <span class="flex items-center gap-2 px-2">VET-APPROVED NUTRITION</span><span class="text-amber">★</span>
+      <span class="flex items-center gap-2 px-2">OPEN DAILY 8 AM – 10 PM</span><span class="text-amber">★</span>
+      <span class="flex items-center gap-2 px-2">🐾 30–45 MIN DELIVERY</span><span class="text-amber">★</span>
+      <span class="flex items-center gap-2 px-2">FREE DELIVERY ABOVE ₹999</span><span class="text-amber">★</span>
+      <span class="flex items-center gap-2 px-2">7 STORES ACROSS CHENNAI</span><span class="text-amber">★</span>
+      <span class="flex items-center gap-2 px-2">VET-APPROVED NUTRITION</span><span class="text-amber">★</span>
+      <span class="flex items-center gap-2 px-2">OPEN DAILY 8 AM – 10 PM</span><span class="text-amber">★</span>
+    </div></div>
+  </div>
+
+  <!-- ============ TRUST BADGES ============ -->
+  <section class="max-w-7xl mx-auto px-4 lg:px-8 mt-8">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      <div class="reveal bg-white rounded-2xl border border-ink/5 p-4 flex items-center gap-3"><span class="w-11 h-11 rounded-2xl bg-blush flex items-center justify-center shrink-0"><i data-lucide="zap" class="w-5 h-5 text-cherry"></i></span><div><p class="text-sm font-extrabold text-ink">30–45 min</p><p class="text-[11px] font-bold text-ink/50">Lightning delivery</p></div></div>
+      <div class="reveal bg-white rounded-2xl border border-ink/5 p-4 flex items-center gap-3" style="transition-delay:60ms"><span class="w-11 h-11 rounded-2xl bg-teal/10 flex items-center justify-center shrink-0"><i data-lucide="shield-check" class="w-5 h-5 text-teal"></i></span><div><p class="text-sm font-extrabold text-ink">Secure payments</p><p class="text-[11px] font-bold text-ink/50">UPI · Card · Wallet</p></div></div>
+      <div class="reveal bg-white rounded-2xl border border-ink/5 p-4 flex items-center gap-3" style="transition-delay:120ms"><span class="w-11 h-11 rounded-2xl bg-amber/15 flex items-center justify-center shrink-0"><i data-lucide="star" class="w-5 h-5 text-amber fill-amber"></i></span><div><p class="text-sm font-extrabold text-ink">4.8 rating</p><p class="text-[11px] font-bold text-ink/50">2,300+ reviews</p></div></div>
+      <div class="reveal bg-white rounded-2xl border border-ink/5 p-4 flex items-center gap-3" style="transition-delay:180ms"><span class="w-11 h-11 rounded-2xl bg-blush flex items-center justify-center shrink-0"><i data-lucide="phone-call" class="w-5 h-5 text-cherry"></i></span><div><p class="text-sm font-extrabold text-ink">+91 89397 87787</p><p class="text-[11px] font-bold text-ink/50">Call us anytime</p></div></div>
+    </div>
+  </section>
+
+  <!-- ============ BUY AGAIN ============ -->
+  <section id="buy-again-section" class="hidden max-w-7xl mx-auto px-4 lg:px-8 mt-12">
+    <div class="flex items-end justify-between mb-5">
+      <div><p class="text-xs font-extrabold text-cherry uppercase tracking-widest">For your furry regular</p><h2 class="font-display font-black text-2xl lg:text-3xl text-ink">Buy it again 🔁</h2></div>
+      <a href="orders.html" class="text-sm font-extrabold text-cherry hover:text-cherry-dark flex items-center gap-1 shrink-0">All orders <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+    </div>
+    <div id="buy-again-row" class="flex gap-4 overflow-x-auto no-scrollbar pb-2 snap-x"></div>
+  </section>
+
+  <!-- ============ CATEGORY GRID ============ -->
+  <section class="max-w-7xl mx-auto px-4 lg:px-8 mt-14">
+    <div class="text-center mb-7">
+      <p class="text-xs font-extrabold text-teal uppercase tracking-widest">Shop by aisle</p>
+      <h2 class="font-display font-black text-2xl lg:text-4xl text-ink mt-1">Pick a category, <span class="grad-text">spoil a pet</span></h2>
+    </div>
+    <div id="cat-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3.5"></div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section id="services" class="mt-16 bg-ink relative overflow-hidden">
+    <div class="absolute -top-16 -right-16 w-72 h-72 bg-cherry/20 blob"></div>
+    <div class="absolute -bottom-20 -left-10 w-80 h-80 bg-teal/15 blob" style="animation-delay:-4s"></div>
+    <div class="relative max-w-7xl mx-auto px-4 lg:px-8 py-14">
+      <div class="text-center mb-9">
+        <p class="text-xs font-extrabold text-amber uppercase tracking-widest">More than a store</p>
+        <h2 class="font-display font-black text-2xl lg:text-4xl text-cream mt-1">Top 5 services pet parents love</h2>
+        <p class="text-cream/60 font-semibold text-sm mt-2">Walk into any of our 7 Chennai stores — or call to book.</p>
+      </div>
+      <div id="services-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"></div>
+      <div class="text-center mt-8">
+        <a href="https://wa.me/918939787787?text=Hi! I'd like to book a pet service." target="_blank" rel="noopener" class="btn-shine inline-flex items-center gap-2 bg-amber text-ink font-extrabold rounded-full px-7 py-4 hover:scale-105 transition-transform shadow-lg shadow-amber/25"><i data-lucide="calendar-check" class="w-5 h-5"></i>Book on WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BESTSELLERS ============ -->
+  <section class="max-w-7xl mx-auto px-4 lg:px-8 mt-16">
+    <div class="flex items-end justify-between mb-6">
+      <div><p class="text-xs font-extrabold text-cherry uppercase tracking-widest">Most loved this week</p><h2 class="font-display font-black text-2xl lg:text-4xl text-ink">Bestsellers <span class="inline-block wiggle">🔥</span></h2></div>
+      <a href="category.html" class="text-sm font-extrabold text-cherry hover:text-cherry-dark flex items-center gap-1 shrink-0">View all <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+    </div>
+    <div id="best-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"></div>
+  </section>
+
+  <!-- ============ OFFERS STRIP ============ -->
+  <section class="max-w-7xl mx-auto px-4 lg:px-8 mt-14">
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="reveal relative overflow-hidden rounded-3xl bg-gradient-to-br from-cherry to-[#FF7A45] text-white p-6 group">
+        <span class="absolute -right-6 -bottom-8 text-8xl opacity-20 group-hover:scale-110 transition-transform">🦴</span>
+        <p class="text-xs font-extrabold uppercase tracking-widest text-white/80">Coupon</p>
+        <h3 class="font-display font-black text-2xl mt-1">PAWS50</h3>
+        <p class="text-sm font-bold text-white/85 mt-1">₹50 off on orders above ₹499</p>
+        <a href="category.html" class="inline-flex items-center gap-1 text-xs font-extrabold mt-4 bg-white/20 hover:bg-white/30 rounded-full px-4 py-2 transition-colors">Shop now <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+      </div>
+      <div class="reveal relative overflow-hidden rounded-3xl bg-gradient-to-br from-teal to-[#0B7C7B] text-white p-6 group" style="transition-delay:80ms">
+        <span class="absolute -right-6 -bottom-8 text-8xl opacity-20 group-hover:scale-110 transition-transform">🐱</span>
+        <p class="text-xs font-extrabold uppercase tracking-widest text-white/80">Coupon</p>
+        <h3 class="font-display font-black text-2xl mt-1">PET10</h3>
+        <p class="text-sm font-bold text-white/85 mt-1">10% off up to ₹100, above ₹599</p>
+        <a href="coupon.html" class="inline-flex items-center gap-1 text-xs font-extrabold mt-4 bg-white/20 hover:bg-white/30 rounded-full px-4 py-2 transition-colors">All offers <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+      </div>
+      <div class="reveal relative overflow-hidden rounded-3xl bg-gradient-to-br from-amber to-[#F09A19] text-ink p-6 group" style="transition-delay:160ms">
+        <span class="absolute -right-6 -bottom-8 text-8xl opacity-25 group-hover:scale-110 transition-transform">🎉</span>
+        <p class="text-xs font-extrabold uppercase tracking-widest text-ink/60">New pet parent?</p>
+        <h3 class="font-display font-black text-2xl mt-1">FIRSTPET</h3>
+        <p class="text-sm font-bold text-ink/75 mt-1">₹100 off your first order above ₹699</p>
+        <a href="category.html" class="inline-flex items-center gap-1 text-xs font-extrabold mt-4 bg-ink text-cream rounded-full px-4 py-2 hover:bg-ink/85 transition-colors">Claim it <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIALS ============ -->
+  <section class="max-w-7xl mx-auto px-4 lg:px-8 mt-16">
+    <div class="text-center mb-8">
+      <p class="text-xs font-extrabold text-teal uppercase tracking-widest">Pet parents of Chennai say</p>
+      <h2 class="font-display font-black text-2xl lg:text-4xl text-ink mt-1">Wagging tails, happy reviews</h2>
+    </div>
+    <div id="testimonials" class="grid md:grid-cols-3 gap-4"></div>
+  </section>
+
+</main>
+
+<div id="app-footer"></div>
+<div id="app-bottomnav"></div>
+<div id="app-whatsapp"></div>
+
+<script>
+  bootShell({ activeTab: "home", search: true });
+  spawnPaws("body", 7);
+
+  /* category grid */
+  document.getElementById("cat-grid").innerHTML = CATEGORIES.map((c, i) => `
+    <a href="category.html?cat=${c.slug}" class="reveal group relative overflow-hidden rounded-3xl aspect-[4/5] block shadow-sm hover:shadow-xl transition-all hover:-translate-y-1" style="transition-delay:${i * 60}ms">
+      <img src="${c.img}" alt="${c.name}" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"/>
+      <div class="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20 to-transparent"></div>
+      <div class="absolute bottom-0 left-0 right-0 p-4">
+        <span class="w-9 h-9 rounded-xl flex items-center justify-center mb-2" style="background:${c.color}"><i data-lucide="${c.icon}" class="w-4.5 h-4.5 w-5 h-5 text-white"></i></span>
+        <p class="font-display font-bold text-cream leading-tight">${c.name}</p>
+        <p class="text-[10px] font-bold text-cream/70 mt-0.5 line-clamp-2">${c.desc}</p>
+      </div>
+    </a>`).join("");
+
+  /* services */
+  document.getElementById("services-grid").innerHTML = SERVICES.map((s, i) => `
+    <div class="reveal bg-cream/5 border border-cream/10 hover:border-amber/50 rounded-3xl p-5 text-center group hover:bg-cream/10 transition-all hover:-translate-y-1" style="transition-delay:${i * 70}ms">
+      <span class="w-14 h-14 mx-auto rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform" style="background:${s.color}22"><i data-lucide="${s.icon}" class="w-6 h-6" style="color:${s.color}"></i></span>
+      <h3 class="font-display font-bold text-cream mt-3">${s.name}</h3>
+      <p class="text-[11px] font-semibold text-cream/55 mt-1.5 leading-relaxed">${s.desc}</p>
+    </div>`).join("");
+
+  /* bestsellers */
+  const best = PRODUCTS.filter(p => p.bestseller).slice(0, 10);
+  document.getElementById("best-grid").innerHTML = best.map((p, i) => productCard(p, i * 50)).join("");
+
+  /* buy again (from past orders) */
+  const orders = Store.get("dittomart_orders", []);
+  if (orders.length) {
+    const seen = new Set(); const recent = [];
+    orders.slice().reverse().forEach(o => (o.items || []).forEach(it => {
+      if (!seen.has(it.id) && getProduct(it.id)) { seen.add(it.id); recent.push(getProduct(it.id)); }
+    }));
+    if (recent.length) {
+      document.getElementById("buy-again-section").classList.remove("hidden");
+      document.getElementById("buy-again-row").innerHTML = recent.slice(0, 6).map(p => `
+        <div class="snap-start shrink-0 w-44 bg-white rounded-3xl border border-ink/5 shadow-sm p-3 flex flex-col h-full">
+          <a href="product.html?id=${p.id}"><img src="${p.img}" alt="${p.name}" class="w-full aspect-square object-cover rounded-2xl"/></a>
+          <div class="flex flex-col flex-1 mt-2.5">
+            <p class="text-xs font-extrabold text-ink line-clamp-2 min-h-[32px]">${p.name}</p>
+            <p class="text-[11px] font-bold text-ink/45 mt-1">${p.unit}</p>
+            <div class="mt-auto pt-3 flex items-center justify-between gap-1">
+              <span class="font-display font-bold text-sm">${rupee(p.price)}</span>
+              <button onclick="cardAdd('${p.id}')" class="bg-blush text-cherry text-[10px] font-extrabold px-3 py-1.5 rounded-full hover:bg-cherry hover:text-white transition-colors active:scale-90">REORDER</button>
+            </div>
+          </div>
+        </div>`).join("");
+    }
+  }
+
+  /* testimonials */
+  document.getElementById("testimonials").innerHTML = TESTIMONIALS.map((t, i) => `
+    <div class="reveal bg-white rounded-3xl border border-ink/5 shadow-sm p-6 relative" style="transition-delay:${i * 90}ms">
+      <span class="absolute -top-3 left-6 text-4xl font-display text-cherry">“</span>
+      <div class="flex gap-0.5 text-amber mb-3 pt-2">${"★".repeat(t.stars)}</div>
+      <p class="text-sm font-semibold text-ink/75 leading-relaxed">${t.quote}</p>
+      <div class="flex items-center gap-3 mt-5">
+        <span class="w-10 h-10 rounded-full bg-gradient-to-br from-cherry to-amber text-white font-display font-bold flex items-center justify-center">${t.name[0]}</span>
+        <div><p class="text-sm font-extrabold text-ink">${t.name}</p><p class="text-[11px] font-bold text-ink/45">${t.area}, Chennai</p></div>
+      </div>
+    </div>`).join("");
+
+  /* live search */
+  setTimeout(() => {
+    const s = document.getElementById("hdr-search");
+    if (s) { let t; s.addEventListener("input", () => { clearTimeout(t); t = setTimeout(() => {
+      if (s.value.trim().length >= 2) window.location.href = "category.html?q=" + encodeURIComponent(s.value.trim());
+    }, 700); }); }
+  }, 100);
+
+  lucide.createIcons();
+  initReveal();
+  animateCounters();
+</script>
+</body>
+</html>

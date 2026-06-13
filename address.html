@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Delivery Address — Best For Pets</title>
+<link rel="icon" type="image/png" href="assets/images/logo.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="assets/images/logo.png"/>
+<link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.png"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{cherry:'#E63946','cherry-dark':'#C42B38',ink:'#23262F',cream:'#FFF6EC','cream-deep':'#FBEBDB',blush:'#FFE3D2',teal:'#0E9594',amber:'#FFB627'},fontFamily:{display:['Fraunces','serif']}}}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/animations.js"></script>
+<script>locationGate();</script>
+</head>
+<body>
+<div id="app-header"></div>
+
+<main class="pt-24 sm:pt-20 pb-32 lg:pb-12 max-w-7xl mx-auto px-4 lg:px-8">
+  <!-- checkout steps -->
+  <div class="flex items-center gap-2 mt-3 text-[11px] font-extrabold">
+    <span class="flex items-center gap-1.5 text-teal"><span class="w-5 h-5 rounded-full bg-teal text-white grid place-items-center text-[10px]">✓</span>Cart</span>
+    <span class="w-6 h-px bg-ink/15"></span>
+    <span class="flex items-center gap-1.5 text-cherry"><span class="w-5 h-5 rounded-full bg-cherry text-white grid place-items-center text-[10px]">2</span>Address</span>
+    <span class="w-6 h-px bg-ink/15"></span>
+    <span class="flex items-center gap-1.5 text-ink/40"><span class="w-5 h-5 rounded-full bg-ink/10 grid place-items-center text-[10px]">3</span>Payment</span>
+  </div>
+
+  <h1 class="font-display font-black text-3xl lg:text-4xl text-ink mt-4">Where should we deliver? 📦</h1>
+
+  <div class="lg:grid lg:grid-cols-12 lg:gap-8 mt-6">
+    <section class="lg:col-span-7 xl:col-span-8">
+      <!-- saved addresses -->
+      <div id="addr-list" class="space-y-3.5"></div>
+
+      <button onclick="toggleForm(true)" id="add-btn" class="w-full mt-4 border-2 border-dashed border-cherry/40 hover:border-cherry bg-blush/40 hover:bg-blush/70 rounded-3xl p-5 flex items-center justify-center gap-2 text-cherry font-extrabold transition group">
+        <span class="w-8 h-8 rounded-full bg-cherry text-white grid place-items-center group-hover:rotate-90 transition-transform"><i data-lucide="plus" class="w-4 h-4"></i></span>
+        Add new address
+      </button>
+
+      <!-- add new form -->
+      <div id="addr-form" class="hidden mt-5 bg-white rounded-[2rem] border border-ink/5 p-6 sm:p-7 shadow-sm">
+        <div class="flex items-center justify-between">
+          <h2 class="font-display font-black text-xl text-ink">New address</h2>
+          <button onclick="toggleForm(false)" class="w-9 h-9 rounded-full bg-cream-deep grid place-items-center hover:bg-blush transition"><i data-lucide="x" class="w-4 h-4"></i></button>
+        </div>
+
+        <!-- step A: capture coordinates -->
+        <div class="mt-5 bg-cream rounded-3xl p-5 border border-amber/30">
+          <p class="text-xs font-extrabold text-ink/60 uppercase tracking-wider flex items-center gap-1.5"><i data-lucide="satellite" class="w-3.5 h-3.5 text-cherry"></i>Step 1 — Pin your location (required)</p>
+          <div class="flex flex-col sm:flex-row gap-3 mt-3.5">
+            <button onclick="gpsDetect()" id="gps-btn" class="btn-shine flex-1 bg-cherry text-white font-extrabold py-3.5 px-5 rounded-2xl hover:bg-cherry-dark transition flex items-center justify-center gap-2"><i data-lucide="locate-fixed" class="w-4 h-4"></i><span id="gps-label">Use current location</span></button>
+            <div class="flex-1 relative">
+              <input id="area-search" type="text" placeholder="🔍 Or search your area…" class="w-full bg-cream-deep border-2 border-transparent focus:border-cherry focus:bg-white rounded-2xl px-4 py-3.5 text-sm font-bold outline-none transition-all" oninput="searchArea(this.value)"/>
+              <div id="suggestions" class="hidden absolute left-0 right-0 top-full mt-2 bg-white rounded-2xl shadow-xl border border-ink/5 overflow-hidden z-20 max-h-60 overflow-y-auto"></div>
+            </div>
+          </div>
+          <!-- captured display -->
+          <div id="coords-card" class="hidden mt-4 bg-white rounded-2xl p-4 border border-teal/25">
+            <div class="flex items-start gap-3">
+              <div class="w-11 h-11 rounded-xl bg-teal/10 grid place-items-center shrink-0"><i data-lucide="map-pin" class="w-5 h-5 text-teal map-pin-drop"></i></div>
+              <div class="flex-1 min-w-0">
+                <p class="font-extrabold text-sm text-ink" id="picked-area">—</p>
+                <p class="text-[11px] font-bold text-ink/50 mt-0.5">Lat <span id="lat-d">—</span> · Lng <span id="lng-d">—</span> · <span id="dist-d">—</span> from store</p>
+                <p id="svc-ok" class="hidden text-[11px] font-extrabold text-teal mt-1 flex items-center gap-1"><i data-lucide="badge-check" class="w-3.5 h-3.5"></i>Serviceable — we deliver here!</p>
+                <p id="svc-bad" class="hidden text-[11px] font-extrabold text-cherry mt-1 flex items-center gap-1"><i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i>Outside our 10 km delivery area — pick another location.</p>
+              </div>
+            </div>
+            <!-- mini map preview -->
+            <div class="mt-3 h-24 rounded-xl bg-gradient-to-br from-teal/15 via-cream-deep to-blush relative overflow-hidden">
+              <div class="absolute inset-0 opacity-30" style="background-image:repeating-linear-gradient(0deg,transparent,transparent 19px,#23262F12 20px),repeating-linear-gradient(90deg,transparent,transparent 19px,#23262F12 20px)"></div>
+              <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-full"><i data-lucide="map-pin" class="w-8 h-8 text-cherry map-pin-drop" style="fill:#FFE3D2"></i></div>
+              <span class="absolute bottom-1.5 right-2 text-[9px] font-extrabold text-ink/40">map preview</span>
+            </div>
+          </div>
+          <p id="coords-err" class="hidden text-xs font-bold text-cherry mt-3">⚠️ GPS coordinates required for delivery. Please use Detect Location or Search.</p>
+        </div>
+
+        <!-- step B: details -->
+        <p class="text-xs font-extrabold text-ink/60 uppercase tracking-wider mt-6 flex items-center gap-1.5"><i data-lucide="clipboard-list" class="w-3.5 h-3.5 text-cherry"></i>Step 2 — Address details</p>
+        <div class="flex gap-2.5 mt-3.5">
+          <button class="label-pill active" data-label="Home" onclick="pickLabel(this)">🏠 Home</button>
+          <button class="label-pill" data-label="Work" onclick="pickLabel(this)">💼 Work</button>
+          <button class="label-pill" data-label="Other" onclick="pickLabel(this)">📍 Other</button>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-3.5 mt-4">
+          <input id="f-name" class="fld" placeholder="Receiver name *"/>
+          <input id="f-phone" class="fld" placeholder="Phone (10 digits) *" maxlength="10" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'')"/>
+          <input id="f-house" class="fld" placeholder="House / Flat no. *"/>
+          <input id="f-building" class="fld" placeholder="Building / Apartment *"/>
+          <input id="f-street" class="fld sm:col-span-2" placeholder="Street / Area *"/>
+          <input id="f-landmark" class="fld" placeholder="Landmark (optional)"/>
+          <input id="f-city" class="fld" placeholder="City *" value="Chennai"/>
+          <input id="f-pincode" class="fld" placeholder="Pincode (6 digits) *" maxlength="6" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'')"/>
+        </div>
+        <p id="form-err" class="hidden text-xs font-bold text-cherry mt-3"></p>
+        <button id="save-btn" onclick="saveAddress()" disabled class="btn-shine w-full mt-5 bg-ink disabled:bg-ink/25 disabled:cursor-not-allowed text-cream font-extrabold py-4 rounded-2xl hover:bg-ink/85 transition flex items-center justify-center gap-2"><i data-lucide="save" class="w-4 h-4"></i><span id="save-label">Capture location to enable save</span></button>
+      </div>
+    </section>
+
+    <!-- summary sidebar -->
+    <aside class="lg:col-span-5 xl:col-span-4 mt-8 lg:mt-0">
+      <div class="lg:sticky lg:top-24 space-y-4">
+        <div class="bg-white rounded-3xl border border-ink/5 p-5">
+          <h3 class="font-display font-bold text-ink flex items-center gap-2"><i data-lucide="receipt" class="w-4 h-4 text-cherry"></i>Order summary</h3>
+          <div id="mini-summary" class="mt-3 space-y-2 text-sm font-bold text-ink/60"></div>
+          <div class="border-t border-dashed border-ink/10 mt-3 pt-3 flex justify-between font-extrabold text-ink"><span>To pay</span><span id="mini-total">—</span></div>
+          <button id="continue-btn" onclick="goPayment()" class="btn-shine hidden w-full mt-5 bg-cherry text-white font-extrabold py-4 rounded-2xl shadow-lg shadow-cherry/30 hover:bg-cherry-dark active:scale-[0.98] transition flex items-center justify-center gap-2">Deliver here · Continue <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+        </div>
+        <div class="bg-teal/10 rounded-3xl p-4 flex items-center gap-3"><i data-lucide="truck" class="w-5 h-5 text-teal shrink-0"></i><p class="text-xs font-bold text-ink/70">Delivery in <span class="text-teal font-extrabold">30–45 min</span> after order confirmation, anywhere within 10 km.</p></div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<!-- removed fixed bar -->
+
+<div id="app-footer"></div>
+<div id="app-bottomnav"></div>
+<div id="app-whatsapp"></div>
+
+<style>
+.fld{background:#FBEBDB;border:2px solid transparent;border-radius:1rem;padding:.85rem 1rem;font-size:.85rem;font-weight:700;outline:none;transition:.2s;width:100%}
+.fld:focus{border-color:#E63946;background:#fff}
+.label-pill{padding:.6rem 1.1rem;border-radius:9999px;font-size:.75rem;font-weight:800;background:#FBEBDB;color:#23262F;transition:.2s;border:2px solid transparent}
+.label-pill.active{background:#FFE3D2;border-color:#E63946;color:#C42B38}
+</style>
+
+<script>
+// must be logged in to be here
+const usr = Store.get('dittomart_user');
+if(!usr || !usr.loggedIn) location.href = 'login.html?next=address.html';
+
+bootShell({activeTab:'cart'});
+
+let capturedLat = null, capturedLng = null, capturedArea = '', capturedPincode = '', capturedDist = null, capturedSvc = false;
+let chosenLabel = 'Home';
+
+/* ---------- saved list ---------- */
+function renderList(){
+  const addrs = Store.get('dittomart_addresses') || [];
+  const active = Store.get('dittomart_active_address');
+  const wrap = document.getElementById('addr-list');
+  if(!addrs.length){ wrap.innerHTML = `<div class="bg-blush/40 rounded-3xl p-6 text-center"><p class="text-3xl">🏡</p><p class="text-sm font-extrabold text-ink mt-2">No saved addresses yet</p><p class="text-xs font-bold text-ink/50 mt-1">Add one below — takes under a minute.</p></div>`; document.getElementById('continue-btn').classList.add('hidden'); return; }
+  wrap.innerHTML = addrs.map(a=>`
+    <div onclick="selectAddr('${a.id}')" class="cursor-pointer bg-white rounded-3xl border-2 ${active===a.id?'border-cherry shadow-lg shadow-cherry/10':'border-ink/5 hover:border-ink/15'} p-5 transition-all">
+      <div class="flex items-start gap-4">
+        <div class="w-11 h-11 rounded-2xl ${active===a.id?'bg-cherry text-white':'bg-cream-deep text-ink/60'} grid place-items-center shrink-0 transition-colors"><i data-lucide="${a.label==='Home'?'house':a.label==='Work'?'briefcase':'map-pin'}" class="w-5 h-5"></i></div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 flex-wrap">
+            <p class="font-extrabold text-ink">${a.label}</p>
+            <span class="text-[10px] font-extrabold bg-teal/10 text-teal px-2 py-0.5 rounded-full">${a.distance_km} km from store</span>
+            ${active===a.id?'<span class="text-[10px] font-extrabold bg-cherry text-white px-2 py-0.5 rounded-full">DELIVERING HERE</span>':''}
+          </div>
+          <p class="text-xs font-bold text-ink/60 mt-1.5 leading-relaxed">${a.house_no}, ${a.building}, ${a.street}${a.landmark?', near '+a.landmark:''}, ${a.city} — ${a.pincode}</p>
+          <p class="text-[11px] font-bold text-ink/40 mt-1">${a.receiver_name} · +91 ${a.phone}</p>
+        </div>
+        <button onclick="event.stopPropagation();delAddr('${a.id}')" class="w-9 h-9 rounded-full bg-cream-deep hover:bg-blush grid place-items-center transition shrink-0"><i data-lucide="trash-2" class="w-4 h-4 text-cherry"></i></button>
+      </div>
+    </div>`).join('');
+  document.getElementById('continue-btn').classList.toggle('hidden', !active);
+  lucide.createIcons();
+}
+function selectAddr(id){ Store.set('dittomart_active_address', id); renderList(); toast('Delivery address selected','map-pin'); }
+function delAddr(id){
+  let addrs = (Store.get('dittomart_addresses')||[]).filter(a=>a.id!==id);
+  Store.set('dittomart_addresses', addrs);
+  if(Store.get('dittomart_active_address')===id) Store.del('dittomart_active_address');
+  renderList(); toast('Address removed','trash-2');
+}
+
+/* ---------- form ---------- */
+function toggleForm(show){
+  document.getElementById('addr-form').classList.toggle('hidden', !show);
+  document.getElementById('add-btn').classList.toggle('hidden', show);
+  if(show) document.getElementById('addr-form').scrollIntoView({behavior:'smooth', block:'start'});
+}
+function pickLabel(btn){
+  document.querySelectorAll('.label-pill').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active'); chosenLabel = btn.dataset.label;
+}
+
+function applyCoords(area){
+  capturedLat = area.lat; capturedLng = area.lng; capturedArea = area.area; capturedPincode = area.pincode;
+  capturedDist = +haversineKm(BRAND.storeLat, BRAND.storeLng, area.lat, area.lng).toFixed(1);
+  capturedSvc = capturedDist <= 10;
+  document.getElementById('coords-card').classList.remove('hidden');
+  document.getElementById('coords-err').classList.add('hidden');
+  document.getElementById('picked-area').textContent = area.area + ', Chennai';
+  document.getElementById('lat-d').textContent = area.lat.toFixed(4);
+  document.getElementById('lng-d').textContent = area.lng.toFixed(4);
+  document.getElementById('dist-d').textContent = capturedDist + ' km';
+  document.getElementById('svc-ok').classList.toggle('hidden', !capturedSvc);
+  document.getElementById('svc-bad').classList.toggle('hidden', capturedSvc);
+  document.getElementById('f-street').value ||= area.area;
+  document.getElementById('f-pincode').value = area.pincode;
+  const save = document.getElementById('save-btn');
+  save.disabled = !capturedSvc;
+  document.getElementById('save-label').textContent = capturedSvc ? 'Save address' : 'Location not serviceable';
+  if(capturedSvc) toast('📍 Location captured','map-pin');
+  lucide.createIcons();
+}
+
+function gpsDetect(){
+  const lbl = document.getElementById('gps-label');
+  lbl.textContent = 'Detecting…';
+  const fallback = ()=>{ applyCoords(CHENNAI_AREAS[0]); lbl.textContent = 'Use current location'; };
+  if(!navigator.geolocation){ fallback(); return; }
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const {latitude:la, longitude:lo} = pos.coords;
+    let best = CHENNAI_AREAS[0], bd = Infinity;
+    CHENNAI_AREAS.forEach(a=>{ const d = haversineKm(la,lo,a.lat,a.lng); if(d<bd){bd=d;best=a;} });
+    applyCoords(best); lbl.textContent = 'Use current location';
+  }, fallback, {timeout:6000});
+}
+
+function searchArea(q){
+  const box = document.getElementById('suggestions');
+  q = q.trim().toLowerCase();
+  if(q.length < 2){ box.classList.add('hidden'); return; }
+  const hits = CHENNAI_AREAS.filter(a=>a.area.toLowerCase().includes(q)).slice(0,6);
+  if(!hits.length){ box.innerHTML = `<p class="px-4 py-3 text-xs font-bold text-ink/50">Address not found. Please use Detect Location instead.</p>`; box.classList.remove('hidden'); return; }
+  box.innerHTML = hits.map(a=>{
+    const d = haversineKm(BRAND.storeLat,BRAND.storeLng,a.lat,a.lng).toFixed(1);
+    const ok = d <= 10;
+    return `<button onclick='chooseArea(${JSON.stringify(JSON.stringify(a))})' class="w-full text-left px-4 py-3 hover:bg-cream flex items-center justify-between gap-2 transition">
+      <span class="text-sm font-bold text-ink">${a.area}</span>
+      <span class="text-[10px] font-extrabold ${ok?'text-teal':'text-cherry'}">${d} km ${ok?'· serviceable':'· too far'}</span>
+    </button>`;
+  }).join('');
+  box.classList.remove('hidden');
+}
+function chooseArea(json){
+  const a = JSON.parse(json);
+  document.getElementById('suggestions').classList.add('hidden');
+  document.getElementById('area-search').value = a.area;
+  applyCoords(a);
+}
+
+function saveAddress(){
+  const err = document.getElementById('form-err');
+  const v = id => document.getElementById(id).value.trim();
+  if(!capturedLat || !capturedLng){ err.textContent='⚠️ GPS coordinates required for delivery. Please use Detect Location or Search.'; err.classList.remove('hidden'); return; }
+  if(!capturedSvc){ err.textContent='This address is outside our delivery area. Please choose a different one.'; err.classList.remove('hidden'); return; }
+  if(!v('f-name') || !v('f-house') || !v('f-building') || !v('f-street') || !v('f-city')){ err.textContent='Please fill all required fields.'; err.classList.remove('hidden'); return; }
+  if(!/^\d{10}$/.test(v('f-phone'))){ err.textContent='Phone must be exactly 10 digits.'; err.classList.remove('hidden'); return; }
+  if(!/^\d{6}$/.test(v('f-pincode'))){ err.textContent='Pincode must be exactly 6 digits.'; err.classList.remove('hidden'); return; }
+  err.classList.add('hidden');
+  const addr = {
+    id: 'addr_' + Date.now(),
+    label: chosenLabel, receiver_name: v('f-name'), phone: v('f-phone'),
+    house_no: v('f-house'), building: v('f-building'), street: v('f-street'),
+    landmark: v('f-landmark'), city: v('f-city'), pincode: v('f-pincode'),
+    latitude: capturedLat, longitude: capturedLng,
+    distance_km: capturedDist, is_serviceable: true, created_at: Date.now()
+  };
+  const addrs = Store.get('dittomart_addresses') || [];
+  addrs.push(addr);
+  Store.set('dittomart_addresses', addrs);
+  Store.set('dittomart_active_address', addr.id);
+  toggleForm(false); renderList();
+  toast('Address saved! 🏡','badge-check');
+}
+
+function goPayment(){
+  if(!Store.get('dittomart_active_address')){ toast('Select a delivery address first','map-pin'); return; }
+  location.href = 'payment.html';
+}
+
+/* ---------- mini summary ---------- */
+(function summary(){
+  const items = Cart.items();
+  if(!items.length){ location.href='cart.html'; return; }
+  const sub = Cart.subtotal();
+  const coupon = Store.get('dittomart_coupon');
+  let disc = 0;
+  if(coupon){ const c = COUPONS.find(x=>x.code===coupon.code); if(c && sub>=c.min) disc = c.type==='flat'? c.value : Math.min(Math.round(sub*c.value/100), c.cap||Infinity); }
+  const del = (sub-disc) >= 999 ? 0 : 49;
+  const gst = Math.round((sub-disc)*0.05);
+  const total = sub - disc + del + gst;
+  document.getElementById('mini-summary').innerHTML = `
+    <div class="flex justify-between"><span>${items.reduce((n,i)=>n+i.qty,0)} items</span><span class="text-ink">${rupee(sub)}</span></div>
+    ${disc?`<div class="flex justify-between text-teal"><span>Coupon (${coupon.code})</span><span>−${rupee(disc)}</span></div>`:''}
+    <div class="flex justify-between"><span>Delivery</span><span class="${del?'text-ink':'text-teal'}">${del?rupee(del):'FREE'}</span></div>
+    <div class="flex justify-between"><span>GST (5%)</span><span class="text-ink">${rupee(gst)}</span></div>`;
+  document.getElementById('mini-total').textContent = rupee(total);
+})();
+
+renderList();
+lucide.createIcons();
+document.addEventListener('click', e=>{ if(!e.target.closest('#area-search') && !e.target.closest('#suggestions')) document.getElementById('suggestions')?.classList.add('hidden'); });
+</script>
+</body>
+</html>

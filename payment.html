@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Payment — Best For Pets</title>
+<link rel="icon" type="image/png" href="assets/images/logo.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="assets/images/logo.png"/>
+<link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.png"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{cherry:'#E63946','cherry-dark':'#C42B38',ink:'#23262F',cream:'#FFF6EC','cream-deep':'#FBEBDB',blush:'#FFE3D2',teal:'#0E9594',amber:'#FFB627'},fontFamily:{display:['Fraunces','serif']}}}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/animations.js"></script>
+<script>locationGate();</script>
+</head>
+<body>
+<div id="app-header"></div>
+
+<main class="pt-24 sm:pt-20 pb-32 lg:pb-12 max-w-7xl mx-auto px-4 lg:px-8">
+  <div class="flex items-center gap-2 mt-3 text-[11px] font-extrabold">
+    <span class="flex items-center gap-1.5 text-teal"><span class="w-5 h-5 rounded-full bg-teal text-white grid place-items-center text-[10px]">✓</span>Cart</span>
+    <span class="w-6 h-px bg-ink/15"></span>
+    <span class="flex items-center gap-1.5 text-teal"><span class="w-5 h-5 rounded-full bg-teal text-white grid place-items-center text-[10px]">✓</span>Address</span>
+    <span class="w-6 h-px bg-ink/15"></span>
+    <span class="flex items-center gap-1.5 text-cherry"><span class="w-5 h-5 rounded-full bg-cherry text-white grid place-items-center text-[10px]">3</span>Payment</span>
+  </div>
+
+  <h1 class="font-display font-black text-3xl lg:text-4xl text-ink mt-4">Choose payment 💳</h1>
+  <p class="text-xs font-bold text-ink/50 mt-1.5 flex items-center gap-1.5"><i data-lucide="lock" class="w-3.5 h-3.5 text-teal"></i>100% secure payments · Joined by 2,300+ happy customers in Chennai</p>
+
+  <!-- store closed error (simulated backend rejection) -->
+  <div id="store-closed" class="hidden mt-6 bg-amber/15 border-2 border-amber/40 rounded-[2rem] p-7 text-center">
+    <p class="text-4xl">🕐</p>
+    <h2 class="font-display font-black text-xl text-ink mt-3">Store currently unavailable</h2>
+    <p class="text-sm font-bold text-ink/60 mt-2 max-w-md mx-auto">Our store is not accepting orders at this moment. Please try again later.</p>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center mt-5">
+      <button onclick="openHoursModal()" class="bg-ink text-cream font-extrabold px-6 py-3.5 rounded-full hover:bg-ink/85 transition flex items-center justify-center gap-2"><i data-lucide="clock" class="w-4 h-4"></i>View store hours</button>
+      <button onclick="retryCheckout()" class="bg-white border-2 border-ink/10 text-ink font-extrabold px-6 py-3.5 rounded-full hover:border-cherry transition">Try again</button>
+    </div>
+  </div>
+
+  <div id="pay-wrap" class="lg:grid lg:grid-cols-12 lg:gap-8 mt-6">
+    <section class="lg:col-span-7 xl:col-span-8 space-y-3.5">
+      <!-- UPI first -->
+      <label class="pay-card" data-method="upi">
+        <input type="radio" name="pay" value="upi" checked class="sr-only"/>
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-teal/10 grid place-items-center shrink-0"><i data-lucide="smartphone" class="w-5 h-5 text-teal"></i></div>
+          <div class="flex-1">
+            <p class="font-extrabold text-ink flex items-center gap-2">UPI <span class="text-[9px] font-extrabold bg-amber/30 text-ink px-2 py-0.5 rounded-full">MOST POPULAR</span></p>
+            <p class="text-xs font-bold text-ink/50 mt-0.5">GPay · PhonePe · Paytm UPI · BHIM</p>
+          </div>
+          <span class="radio-dot"></span>
+        </div>
+        <div class="pay-detail mt-4 hidden">
+          <input id="upi-id" placeholder="yourname@upi" class="w-full bg-cream-deep border-2 border-transparent focus:border-teal focus:bg-white rounded-2xl px-4 py-3.5 text-sm font-bold outline-none transition-all"/>
+          <p class="text-[10px] font-bold text-ink/40 mt-2">Demo prototype — any value works.</p>
+        </div>
+      </label>
+
+      <!-- Card -->
+      <label class="pay-card" data-method="card">
+        <input type="radio" name="pay" value="card" class="sr-only"/>
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-cherry/10 grid place-items-center shrink-0"><i data-lucide="credit-card" class="w-5 h-5 text-cherry"></i></div>
+          <div class="flex-1"><p class="font-extrabold text-ink">Credit / Debit card</p><p class="text-xs font-bold text-ink/50 mt-0.5">Visa · Mastercard · RuPay</p></div>
+          <span class="radio-dot"></span>
+        </div>
+        <div class="pay-detail mt-4 hidden grid sm:grid-cols-2 gap-3">
+          <input placeholder="Card number" maxlength="19" class="fld sm:col-span-2" inputmode="numeric"/>
+          <input placeholder="MM / YY" maxlength="5" class="fld"/>
+          <input placeholder="CVV" maxlength="3" class="fld" inputmode="numeric" type="password"/>
+        </div>
+      </label>
+
+      <!-- Wallet -->
+      <label class="pay-card" data-method="wallet">
+        <input type="radio" name="pay" value="wallet" class="sr-only"/>
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-amber/15 grid place-items-center shrink-0"><i data-lucide="wallet" class="w-5 h-5 text-amber"></i></div>
+          <div class="flex-1"><p class="font-extrabold text-ink">Wallets</p><p class="text-xs font-bold text-ink/50 mt-0.5">Paytm · Amazon Pay · Mobikwik</p></div>
+          <span class="radio-dot"></span>
+        </div>
+      </label>
+
+      <div class="flex items-center gap-4 pt-2 px-1">
+        <span class="flex items-center gap-1.5 text-[11px] font-extrabold text-ink/50"><i data-lucide="shield-check" class="w-4 h-4 text-teal"></i>Secure</span>
+        <span class="flex items-center gap-1.5 text-[11px] font-extrabold text-ink/50"><i data-lucide="truck" class="w-4 h-4 text-cherry"></i>30–45 min delivery</span>
+        <span class="flex items-center gap-1.5 text-[11px] font-extrabold text-ink/50"><i data-lucide="rotate-ccw" class="w-4 h-4 text-amber"></i>Easy refunds</span>
+      </div>
+    </section>
+
+    <aside class="lg:col-span-5 xl:col-span-4 mt-8 lg:mt-0">
+      <div class="lg:sticky lg:top-24 space-y-4">
+        <div class="bg-white rounded-3xl border border-ink/5 p-5">
+          <h3 class="font-display font-bold text-ink flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4 text-cherry"></i>Delivering to</h3>
+          <p id="addr-line" class="text-xs font-bold text-ink/60 mt-2 leading-relaxed">—</p>
+          <a href="address.html" class="text-[11px] font-extrabold text-cherry hover:underline mt-1 inline-block">Change</a>
+        </div>
+        <div class="bg-white rounded-3xl border border-ink/5 p-5">
+          <h3 class="font-display font-bold text-ink flex items-center gap-2"><i data-lucide="receipt" class="w-4 h-4 text-cherry"></i>Bill details</h3>
+          <div id="bill" class="mt-3 space-y-2 text-sm font-bold text-ink/60"></div>
+          <div class="border-t border-dashed border-ink/10 mt-3 pt-3 flex justify-between font-extrabold text-ink text-lg"><span>To pay</span><span id="bill-total">—</span></div>
+          <button onclick="payNow()" class="btn-shine w-full mt-6 bg-cherry text-white font-extrabold py-4 rounded-2xl shadow-lg shadow-cherry/30 hover:bg-cherry-dark active:scale-[0.98] transition flex items-center justify-center gap-2"><i data-lucide="lock" class="w-4 h-4"></i>Pay <span id="pay-amt"></span> securely</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<!-- removed fixed pay bar -->
+
+<div id="app-footer"></div>
+<div id="app-bottomnav"></div>
+<div id="app-whatsapp"></div>
+
+<style>
+.pay-card{display:block;background:#fff;border:2px solid rgba(35,38,47,.06);border-radius:1.5rem;padding:1.25rem;cursor:pointer;transition:.2s}
+.pay-card:hover{border-color:rgba(35,38,47,.15)}
+.pay-card.selected{border-color:#E63946;box-shadow:0 10px 30px -12px rgba(230,57,70,.25)}
+.radio-dot{width:22px;height:22px;border-radius:50%;border:2px solid rgba(35,38,47,.2);position:relative;transition:.2s;flex-shrink:0}
+.pay-card.selected .radio-dot{border-color:#E63946}
+.pay-card.selected .radio-dot::after{content:'';position:absolute;inset:4px;background:#E63946;border-radius:50%}
+.fld{background:#FBEBDB;border:2px solid transparent;border-radius:1rem;padding:.85rem 1rem;font-size:.85rem;font-weight:700;outline:none;transition:.2s;width:100%}
+.fld:focus{border-color:#E63946;background:#fff}
+</style>
+
+<script>
+const usr = Store.get('dittomart_user');
+if(!usr || !usr.loggedIn){ location.href='login.html?next=payment.html'; }
+const activeId = Store.get('dittomart_active_address');
+if(!activeId){ location.href='address.html'; }
+const items = Cart.items();
+if(!items.length){ location.href='cart.html'; }
+
+bootShell({activeTab:'cart'});
+
+/* address line */
+const addr = (Store.get('dittomart_addresses')||[]).find(a=>a.id===activeId);
+if(addr) document.getElementById('addr-line').textContent = `${addr.label} · ${addr.house_no}, ${addr.building}, ${addr.street}, ${addr.city} — ${addr.pincode} · ${addr.receiver_name}, +91 ${addr.phone}`;
+
+/* bill */
+const sub = Cart.subtotal();
+const coupon = Store.get('dittomart_coupon');
+let disc = 0;
+if(coupon){ const c = COUPONS.find(x=>x.code===coupon.code); if(c && sub>=c.min) disc = c.type==='flat'? c.value : Math.min(Math.round(sub*c.value/100), c.cap||Infinity); }
+const del = (sub-disc) >= 999 ? 0 : 49;
+const gst = Math.round((sub-disc)*0.05);
+const total = sub - disc + del + gst;
+document.getElementById('bill').innerHTML = `
+  <div class="flex justify-between"><span>Item total (${items.reduce((n,i)=>n+i.qty,0)} items)</span><span class="text-ink">${rupee(sub)}</span></div>
+  ${disc?`<div class="flex justify-between text-teal"><span>Coupon ${coupon.code}</span><span>−${rupee(disc)}</span></div>`:''}
+  <div class="flex justify-between"><span>Delivery</span><span class="${del?'text-ink':'text-teal'}">${del?rupee(del):'FREE'}</span></div>
+  <div class="flex justify-between"><span>GST (5%)</span><span class="text-ink">${rupee(gst)}</span></div>`;
+document.getElementById('bill-total').textContent = rupee(total);
+document.getElementById('pay-amt').textContent = rupee(total);
+
+/* method selection */
+let method = 'upi';
+function refreshCards(){
+  document.querySelectorAll('.pay-card').forEach(c=>{
+    const sel = c.dataset.method === method;
+    c.classList.toggle('selected', sel);
+    const d = c.querySelector('.pay-detail');
+    if(d) d.classList.toggle('hidden', !sel);
+  });
+}
+document.querySelectorAll('.pay-card').forEach(c=>{
+  c.addEventListener('click', ()=>{ method = c.dataset.method; refreshCards(); });
+});
+refreshCards();
+
+/* checkout with 10% simulated store-closed rejection */
+function payNow(){
+  if(Math.random() < 0.10){
+    document.getElementById('store-closed').classList.remove('hidden');
+    document.getElementById('pay-wrap').classList.add('hidden');
+    document.getElementById('store-closed').scrollIntoView({behavior:'smooth'});
+    return;
+  }
+  // stash pending order context for processing page
+  Store.set('dittomart_pending_payment', { method, total, sub, disc, del, gst, couponCode: coupon?coupon.code:null, addressId: activeId, ts: Date.now() });
+  location.href = 'payment-processing.html';
+}
+function retryCheckout(){
+  document.getElementById('store-closed').classList.add('hidden');
+  document.getElementById('pay-wrap').classList.remove('hidden');
+}
+
+lucide.createIcons();
+</script>
+</body>
+</html>

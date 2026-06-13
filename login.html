@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Login — Best For Pets</title>
+<link rel="icon" type="image/png" href="assets/images/logo.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="assets/images/logo.png"/>
+<link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.png"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{cherry:'#E63946','cherry-dark':'#C42B38',ink:'#23262F',cream:'#FFF6EC','cream-deep':'#FBEBDB',blush:'#FFE3D2',teal:'#0E9594',amber:'#FFB627'},fontFamily:{display:['Fraunces','serif']}}}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/animations.js"></script>
+</head>
+<body class="min-h-screen overflow-x-hidden bg-white">
+
+<main class="pt-8 sm:pt-10 pb-24 lg:pb-0 min-h-[calc(100vh-2rem)] flex items-center">
+  <section class="relative w-full overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 lg:px-8 pt-8 lg:pt-14 pb-10 grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+      
+      <!-- Left Info -->
+      <div class="lg:col-span-6 relative z-10 hidden md:block">
+        <span class="inline-flex items-center gap-2 bg-white border border-cherry/20 text-cherry text-xs font-extrabold px-4 py-2 rounded-full fade-in-up"><i data-lucide="sparkles" class="w-3.5 h-3.5"></i>Welcome back to the family</span>
+        <h1 class="font-display font-black text-4xl sm:text-5xl xl:text-6xl text-ink leading-[1.05] mt-5 fade-in-up" style="animation-delay:.1s">
+          Log in to spoil your <span class="grad-text">best friend</span>
+        </h1>
+        <p class="text-ink/60 font-semibold mt-5 max-w-md fade-in-up" style="animation-delay:.2s">One quick OTP and you're back to faster checkouts, saved addresses, and 1-tap reorders.</p>
+        
+        <div class="flex items-center gap-6 mt-8 fade-in-up" style="animation-delay:.4s">
+          <div><p class="font-display font-black text-2xl text-ink">7</p><p class="text-[11px] font-bold text-ink/50">Chennai stores</p></div>
+          <div class="w-px h-9 bg-ink/10"></div>
+          <div><p class="font-display font-black text-2xl text-ink">45<span class="text-sm"> min</span></p><p class="text-[11px] font-bold text-ink/50">doorstep delivery</p></div>
+        </div>
+      </div>
+
+      <!-- Right Form -->
+      <div class="lg:col-span-6 relative w-full max-w-md mx-auto lg:max-w-none mt-4 lg:mt-0 fade-in-up" style="animation-delay:.2s">
+        <div class="absolute inset-0 bg-gradient-to-br from-cherry to-amber blob opacity-10"></div>
+        <div class="absolute -inset-6 bg-amber/10 blob" style="animation-delay:-3s"></div>
+        
+        <!-- Form Card -->
+        <div class="relative z-10 bg-white rounded-[2.5rem] shadow-2xl shadow-cherry/10 border-4 border-cream-deep p-8 sm:p-10 w-full max-w-md mx-auto">
+          
+          <div class="text-center mb-8">
+            <a href="index.html" class="inline-block bg-cream rounded-2xl p-3 mb-4 shadow-sm hover:scale-105 transition-transform"><img src="assets/images/logo.png" alt="Best For Pets" class="h-10 mx-auto"/></a>
+            <h1 class="font-display font-black text-3xl text-ink leading-tight">Log in to spoil your <span class="grad-text">best friend</span></h1>
+          </div>
+
+          <!-- step 1: phone & location -->
+          <div id="step-phone">
+            <h2 class="font-display font-black text-2xl text-ink hidden md:block mt-2">Login / Sign up</h2>
+            
+            <div class="mt-6 mb-6">
+              <p class="text-xs font-bold text-ink/50 mb-2 text-center md:text-left uppercase tracking-wider">1. Delivery Location</p>
+              <div class="relative flex items-center gap-2">
+                <div class="relative flex-1">
+                  <i data-lucide="map-pin" class="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-ink/40"></i>
+                  <select id="area-select" onchange="document.getElementById('locErr').classList.add('hidden')" class="w-full bg-white border-2 border-ink/10 focus:border-cherry rounded-2xl pl-11 pr-4 py-3.5 text-sm font-extrabold outline-none transition-colors shadow-sm appearance-none cursor-pointer">
+                    <option value="">Select your area...</option>
+                  </select>
+                  <i data-lucide="chevron-down" class="w-4 h-4 absolute right-4 top-1/2 -translate-y-1/2 text-ink/40 pointer-events-none"></i>
+                </div>
+                <button onclick="detectLocation()" class="w-[52px] h-[52px] bg-cream-deep border border-ink/10 rounded-2xl flex items-center justify-center hover:border-cherry hover:text-cherry transition-colors shrink-0 group" title="Detect Current Location">
+                  <i data-lucide="crosshair" class="w-5 h-5 text-ink/60 group-hover:text-cherry transition-colors" id="crosshair-icon"></i>
+                </button>
+              </div>
+              <p id="locErr" class="hidden text-xs font-bold text-cherry mt-2 text-center md:text-left">Please select a delivery area.</p>
+            </div>
+
+            <p class="text-xs font-bold text-ink/50 mb-2 text-center md:text-left uppercase tracking-wider">2. Mobile Number</p>
+            <div class="flex items-center bg-white border-2 border-ink/10 focus-within:border-cherry rounded-2xl overflow-hidden transition-colors shadow-sm">
+              <span class="px-4 py-4 text-sm font-extrabold text-ink/60 border-r border-ink/10 bg-cream-deep">+91</span>
+              <input id="phone" type="tel" inputmode="numeric" maxlength="10" placeholder="98765 43210" class="flex-1 px-4 py-4 text-base font-extrabold outline-none tracking-wide" oninput="this.value=this.value.replace(/\D/g,'');phoneErr.classList.add('hidden')"/>
+            </div>
+            <p id="phoneErr" class="hidden text-xs font-bold text-cherry mt-2 text-center md:text-left">Please enter a valid 10-digit mobile number.</p>
+            
+            <button onclick="sendOtp()" class="btn-shine w-full mt-6 bg-cherry text-white font-extrabold py-4 rounded-2xl hover:bg-cherry-dark active:scale-[0.98] transition shadow-lg shadow-cherry/30 flex items-center justify-center gap-2">Send OTP <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+            <p class="text-[11px] font-bold text-ink/40 text-center mt-4">By continuing you agree to our Terms & Privacy Policy.</p>
+          </div>
+
+          <!-- step 2: otp -->
+          <div id="step-otp" class="hidden">
+            <button onclick="backToPhone()" class="flex items-center gap-1.5 text-xs font-extrabold text-ink/50 hover:text-ink transition"><i data-lucide="arrow-left" class="w-4 h-4"></i>Change number</button>
+            <h2 class="font-display font-black text-2xl text-ink mt-4 text-center md:text-left">Verify OTP</h2>
+            <p class="text-sm font-bold text-ink/50 mt-2 text-center md:text-left">Sent to <span class="text-ink" id="sent-to"></span> · <span class="text-teal">demo: 123456</span></p>
+            <div id="otp-row" class="flex gap-2 mt-6 justify-between">
+              <input class="otp-box" maxlength="1" inputmode="numeric"/><input class="otp-box" maxlength="1" inputmode="numeric"/><input class="otp-box" maxlength="1" inputmode="numeric"/><input class="otp-box" maxlength="1" inputmode="numeric"/><input class="otp-box" maxlength="1" inputmode="numeric"/><input class="otp-box" maxlength="1" inputmode="numeric"/>
+            </div>
+            <p id="otpErr" class="hidden text-xs font-bold text-cherry mt-3 text-center md:text-left">Incorrect OTP. Hint: it's 123456 😉</p>
+            <button onclick="verifyOtp()" class="btn-shine w-full mt-6 bg-ink text-cream font-extrabold py-4 rounded-2xl hover:bg-ink/85 active:scale-[0.98] transition flex items-center justify-center gap-2">Verify & continue <i data-lucide="shield-check" class="w-4 h-4"></i></button>
+            <button onclick="toast('OTP re-sent! (still 123456)','message-square')" class="w-full mt-3 text-xs font-extrabold text-cherry hover:underline text-center">Resend OTP</button>
+          </div>
+        </div>
+
+        <!-- Floating pill -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<style>
+.otp-box{width:100%;max-width:56px;aspect-ratio:1;text-align:center;font-weight:800;font-size:1.25rem;background:#fff;border:2px solid rgba(35,38,47,.1);border-radius:1rem;outline:none;transition:.2s}
+.otp-box:focus{border-color:#E63946;box-shadow:0 0 0 4px rgba(230,57,70,.12)}
+</style>
+
+<script>
+const params = new URLSearchParams(location.search);
+const nextUrl = params.get('next') || 'home.html';
+let phoneVal = '';
+
+window.addEventListener('DOMContentLoaded', () => {
+  const sel = document.getElementById('area-select');
+  if(sel && sel.options.length <= 1) {
+    CHENNAI_AREAS.sort((a,b)=>a.area.localeCompare(b.area)).forEach(a => {
+      const opt = document.createElement('option');
+      opt.value = a.area;
+      opt.textContent = a.area + " - " + a.pincode;
+      sel.appendChild(opt);
+    });
+  }
+});
+
+function detectLocation() {
+  const icon = document.getElementById('crosshair-icon');
+  icon.classList.add('animate-spin');
+  if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(pos => {
+      icon.classList.remove('animate-spin');
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
+      let nearest = null;
+      let minD = Infinity;
+      CHENNAI_AREAS.forEach(a => {
+        const d = haversineKm(lat, lng, a.lat, a.lng);
+        if(d < minD) { minD = d; nearest = a; }
+      });
+      if(nearest && minD < 15) {
+        document.getElementById('area-select').value = nearest.area;
+        toast('Location detected: ' + nearest.area, 'map-pin');
+        document.getElementById('locErr').classList.add('hidden');
+      } else {
+        toast('You are outside our delivery zone.', 'alert-triangle');
+      }
+    }, err => {
+      icon.classList.remove('animate-spin');
+      toast('Could not detect location. Please select manually.', 'alert-circle');
+    });
+  } else {
+    icon.classList.remove('animate-spin');
+    toast('Geolocation not supported.', 'alert-circle');
+  }
+}
+
+function sendOtp(){
+  const areaName = document.getElementById('area-select').value;
+  if(!areaName) { document.getElementById('locErr').classList.remove('hidden'); return; }
+
+  const p = document.getElementById('phone').value.trim();
+  if(!/^\d{10}$/.test(p)){ document.getElementById('phoneErr').classList.remove('hidden'); return; }
+  
+  phoneVal = p;
+  document.getElementById('sent-to').textContent = '+91 ' + p;
+  document.getElementById('step-phone').classList.add('hidden');
+  document.getElementById('step-otp').classList.remove('hidden');
+  toast('OTP sent! (demo: 123456)','message-square');
+  document.querySelector('.otp-box').focus();
+}
+
+function backToPhone(){
+  document.getElementById('step-otp').classList.add('hidden');
+  document.getElementById('step-phone').classList.remove('hidden');
+}
+const boxes = ()=>[...document.querySelectorAll('.otp-box')];
+document.getElementById('otp-row').addEventListener('input', e=>{
+  const b = boxes(); const i = b.indexOf(e.target);
+  e.target.value = e.target.value.replace(/\D/g,'');
+  if(e.target.value && i < b.length-1) b[i+1].focus();
+  document.getElementById('otpErr').classList.add('hidden');
+});
+document.getElementById('otp-row').addEventListener('keydown', e=>{
+  const b = boxes(); const i = b.indexOf(e.target);
+  if(e.key==='Backspace' && !e.target.value && i>0) b[i-1].focus();
+});
+
+function verifyOtp(){
+  const code = boxes().map(b=>b.value).join('');
+  if(code !== '123456'){
+    const row = document.getElementById('otp-row');
+    row.classList.add('shake'); setTimeout(()=>row.classList.remove('shake'), 500);
+    document.getElementById('otpErr').classList.remove('hidden');
+    return;
+  }
+  Store.set('dittomart_user', { loggedIn:true, name:'Pet Parent', phone: phoneVal });
+  
+  // Save Location
+  const areaName = document.getElementById('area-select').value;
+  const area = CHENNAI_AREAS.find(a => a.area === areaName);
+  const loc = {
+    latitude: area.lat,
+    longitude: area.lng,
+    area: area.area,
+    pincode: area.pincode,
+    serviceable: true
+  };
+  Store.set('dittomart_location', loc);
+  
+  toast('Welcome to the family! 🐾','heart');
+  setTimeout(() => location.href = nextUrl, 700);
+}
+
+// already logged in? skip
+const u = Store.get('dittomart_user');
+const loc = Store.get('dittomart_location');
+if(u && u.loggedIn && loc && loc.area) location.href = nextUrl;
+
+// floating paws on desktop panel
+if(document.getElementById('paw-zone')) spawnPaws(document.getElementById('paw-zone'), 7);
+</script>
+</body>
+</html>

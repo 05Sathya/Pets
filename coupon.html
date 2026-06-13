@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Offers & Coupons — Best For Pets</title>
+<link rel="icon" type="image/png" href="assets/images/logo.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="assets/images/logo.png"/>
+<link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.png"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{cherry:'#E63946','cherry-dark':'#C42B38',ink:'#23262F',cream:'#FFF6EC','cream-deep':'#FBEBDB',blush:'#FFE3D2',teal:'#0E9594',amber:'#FFB627'},fontFamily:{display:['Fraunces','serif']}}}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/animations.js"></script>
+<script>locationGate();</script>
+</head>
+<body>
+<div id="app-header"></div>
+
+<main class="pt-24 sm:pt-20 pb-24 lg:pb-12 max-w-4xl mx-auto px-4 lg:px-8">
+  <div class="mt-3 reveal">
+    <span class="inline-flex items-center gap-2 bg-amber/20 text-ink text-[11px] font-extrabold uppercase tracking-widest px-4 py-1.5 rounded-full"><i data-lucide="party-popper" class="w-3.5 h-3.5"></i>Treat time</span>
+    <h1 class="font-display font-black text-3xl lg:text-4xl text-ink mt-3">Offers & coupons 🎁</h1>
+    <p class="text-sm font-bold text-ink/50 mt-1.5">Tap apply — savings reach your cart instantly.</p>
+  </div>
+
+  <div class="space-y-5 mt-8" id="coupon-list"></div>
+
+  <div class="mt-10 bg-ink rounded-[2rem] p-7 text-center relative overflow-hidden reveal">
+    <div class="absolute -top-8 -right-8 w-32 h-32 bg-cherry/30 rounded-full blur-2xl"></div>
+    <div class="absolute -bottom-8 -left-8 w-32 h-32 bg-teal/30 rounded-full blur-2xl"></div>
+    <p class="text-3xl">🐾</p>
+    <h3 class="font-display font-bold text-cream text-xl mt-2">More offers every week!</h3>
+    <p class="text-cream/60 text-sm font-bold mt-1.5">Follow us on WhatsApp to never miss a deal.</p>
+    <a href="https://wa.me/918939787787?text=Hi! Please add me to your offers list 🐾" target="_blank" class="btn-shine inline-flex items-center gap-2 mt-5 bg-teal text-white font-extrabold px-6 py-3.5 rounded-full hover:brightness-110 transition"><i data-lucide="message-circle" class="w-4 h-4"></i>Get offer alerts</a>
+  </div>
+</main>
+
+<div id="app-footer"></div>
+<div id="app-bottomnav"></div>
+<div id="app-whatsapp"></div>
+
+<script>
+bootShell({activeTab:'home'});
+
+const grads = [
+  'from-cherry to-cherry-dark',
+  'from-teal to-[#0B7B7A]',
+  'from-amber to-[#E8A012]'
+];
+const emojis = ['🦴','🐱','🐶'];
+
+document.getElementById('coupon-list').innerHTML = COUPONS.map((c,i)=>`
+  <div class="reveal bg-gradient-to-r ${grads[i%3]} rounded-[2rem] p-1 shadow-xl" style="transition-delay:${i*90}ms">
+    <div class="bg-white/0 rounded-[1.85rem] p-6 sm:p-7 flex flex-col sm:flex-row sm:items-center gap-5 relative overflow-hidden">
+      <div class="absolute right-6 top-4 text-6xl opacity-15 select-none">${emojis[i%3]}</div>
+      <div class="w-16 h-16 shrink-0 bg-white/20 backdrop-blur rounded-2xl grid place-items-center border-2 border-dashed border-white/50">
+        <i data-lucide="ticket-percent" class="w-7 h-7 text-white"></i>
+      </div>
+      <div class="flex-1 min-w-0">
+        <p class="font-display font-black text-white text-2xl tracking-wide">${c.code}</p>
+        <p class="text-white/90 text-sm font-bold mt-1">${c.desc}</p>
+        <p class="text-white/70 text-xs font-bold mt-1">On orders above ${rupee(c.min)}</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="copyCode('${c.code}')" class="bg-white/15 hover:bg-white/25 text-white text-xs font-extrabold px-4 py-3 rounded-full transition flex items-center gap-1.5"><i data-lucide="copy" class="w-3.5 h-3.5"></i>Copy</button>
+        <a href="cart.html?apply=${c.code}" class="btn-shine bg-white text-ink text-sm font-extrabold px-6 py-3 rounded-full hover:scale-105 active:scale-95 transition shadow-lg">Apply</a>
+      </div>
+    </div>
+  </div>
+`).join('');
+
+function copyCode(code){
+  navigator.clipboard?.writeText(code).then(()=>toast(`${code} copied!`, 'copy')).catch(()=>toast(`Code: ${code}`, 'ticket'));
+}
+
+lucide.createIcons();
+initReveal();
+</script>
+</body>
+</html>

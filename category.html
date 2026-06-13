@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shop — Best For Pets</title>
+<link rel="icon" type="image/png" href="assets/images/logo.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="assets/images/logo.png"/>
+<link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.png"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{cherry:'#E63946','cherry-dark':'#C42B38',ink:'#23262F',cream:'#FFF6EC','cream-deep':'#FBEBDB',blush:'#FFE3D2',teal:'#0E9594',amber:'#FFB627'},fontFamily:{display:['Fraunces','serif']}}}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/animations.js"></script>
+<script>locationGate();</script>
+</head>
+<body>
+<div id="app-header"></div>
+
+<main class="pt-24 sm:pt-20 pb-24 lg:pb-10 max-w-7xl mx-auto px-4 lg:px-8">
+
+  <!-- Beautiful Hero Header -->
+  <div class="relative overflow-hidden bg-gradient-to-br from-cream-deep to-blush rounded-[2.5rem] p-8 lg:p-12 mb-8 shadow-sm">
+    <div class="absolute -top-24 -right-10 w-72 h-72 bg-cherry/10 blob"></div>
+    <div class="absolute -bottom-10 -left-10 w-48 h-48 bg-amber/10 blob" style="animation-delay:-2s"></div>
+    <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div>
+        <p class="inline-flex items-center gap-2 bg-white/60 backdrop-blur-sm border border-white text-ink text-[10px] font-extrabold px-3 py-1.5 rounded-full uppercase tracking-widest mb-4" id="crumb">Shop</p>
+        <h1 class="font-display font-black text-4xl lg:text-5xl text-ink leading-tight" id="page-title">All products</h1>
+        <p class="text-sm font-bold text-ink/60 mt-3 flex items-center gap-2"><i data-lucide="box" class="w-4 h-4 text-cherry"></i> <span id="result-count">0</span> products found <span class="w-1.5 h-1.5 rounded-full bg-ink/20 mx-1"></span> 30–45 min delivery</p>
+      </div>
+      <div class="shrink-0 hidden md:flex gap-3">
+        <div class="bg-white/60 backdrop-blur-sm rounded-2xl p-4 text-center border border-white shadow-sm"><p class="text-2xl">⚡</p><p class="text-[10px] font-extrabold text-ink/70 mt-1 uppercase tracking-wide">Fast Delivery</p></div>
+        <div class="bg-white/60 backdrop-blur-sm rounded-2xl p-4 text-center border border-white shadow-sm"><p class="text-2xl">⭐</p><p class="text-[10px] font-extrabold text-ink/70 mt-1 uppercase tracking-wide">Top Rated</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lg:flex lg:items-center lg:justify-between mb-2">
+    <!-- category chips -->
+    <div class="flex-1 w-full overflow-hidden mr-0 lg:mr-6">
+      <div class="flex gap-2.5 overflow-x-auto no-scrollbar pb-2" id="cat-chips"></div>
+    </div>
+    
+    <div class="flex items-center gap-2 mt-4 lg:mt-0 shrink-0">
+      <button onclick="toggleFilterSheet()" class="lg:hidden flex items-center gap-1.5 bg-white border-2 border-ink/10 rounded-full px-5 py-3 text-xs font-extrabold shadow-sm active:scale-95"><i data-lucide="sliders-horizontal" class="w-4 h-4"></i>Filters</button>
+      <div class="relative">
+        <select id="sort" onchange="render()" class="appearance-none bg-white border-2 border-ink/10 focus:border-cherry rounded-full pl-5 pr-10 py-3 text-xs font-extrabold outline-none shadow-sm cursor-pointer hover:border-ink/20 transition-colors">
+          <option value="pop">Sort: Popularity</option>
+          <option value="plh">Price: Low → High</option>
+          <option value="phl">Price: High → Low</option>
+          <option value="rate">Rating</option>
+        </select>
+        <i data-lucide="chevron-down" class="w-4 h-4 absolute right-4 top-1/2 -translate-y-1/2 text-ink/40 pointer-events-none"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- food type chips -->
+  <div class="flex gap-2 mb-6" id="food-chips"></div>
+
+  <div class="lg:grid lg:grid-cols-12 lg:gap-8">
+    <!-- desktop sidebar filters -->
+    <aside class="hidden lg:block lg:col-span-3">
+      <div class="bg-white rounded-[2rem] border border-ink/5 shadow-xl shadow-ink/[0.02] p-6 sticky top-24">
+        <h3 class="font-display font-black text-xl text-ink flex items-center gap-2"><i data-lucide="sliders-horizontal" class="w-5 h-5 text-cherry"></i>Filters</h3>
+        <div class="w-10 h-1 bg-ink/10 rounded-full mt-3 mb-6"></div>
+        
+        <div>
+          <p class="text-xs font-extrabold text-ink/50 uppercase tracking-wide mb-3 flex justify-between">Max price: <span id="price-label" class="text-cherry">₹2000</span></p>
+          <input id="price-range" type="range" min="100" max="2000" value="2000" step="50" class="w-full accent-cherry" oninput="document.getElementById('price-label').textContent=rupee(this.value);render()"/>
+        </div>
+        
+        <div class="mt-8 space-y-4">
+          <label class="flex items-center gap-3 cursor-pointer group">
+            <input id="best-only" type="checkbox" class="w-5 h-5 accent-cherry rounded border-ink/20" onchange="render()"/>
+            <span class="text-sm font-bold text-ink/80 group-hover:text-cherry transition-colors">Bestsellers only 🔥</span>
+          </label>
+          <label class="flex items-center gap-3 cursor-pointer group">
+            <input id="offer-only" type="checkbox" class="w-5 h-5 accent-cherry rounded border-ink/20" onchange="render()"/>
+            <span class="text-sm font-bold text-ink/80 group-hover:text-cherry transition-colors">On offer %</span>
+          </label>
+        </div>
+        
+        <button onclick="resetFilters()" class="mt-8 w-full font-extrabold text-cherry bg-blush rounded-2xl py-3.5 hover:bg-cherry hover:text-white transition-colors active:scale-[0.98]">Reset filters</button>
+      </div>
+    </aside>
+
+    <section class="lg:col-span-9">
+      <div id="skeleton" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div class="skeleton aspect-[3/4]"></div><div class="skeleton aspect-[3/4]"></div><div class="skeleton aspect-[3/4]"></div><div class="skeleton aspect-[3/4]"></div>
+        <div class="skeleton aspect-[3/4] hidden md:block"></div><div class="skeleton aspect-[3/4] hidden md:block"></div>
+      </div>
+      <div id="grid" class="hidden grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4"></div>
+      <div id="empty" class="hidden text-center py-20">
+        <div class="text-6xl float-slow inline-block">🐾</div>
+        <h3 class="font-display font-black text-xl text-ink mt-4">No treats found here</h3>
+        <p class="text-sm font-bold text-ink/50 mt-1">Try clearing filters or searching for something else.</p>
+        <button onclick="resetFilters()" class="mt-5 bg-cherry text-white text-sm font-extrabold px-6 py-3 rounded-full hover:bg-cherry-dark transition-colors">Clear all filters</button>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- mobile filter bottom sheet -->
+<div id="filter-sheet" class="hidden fixed inset-0 z-[100] lg:hidden">
+  <div class="absolute inset-0 bg-ink/50 backdrop-blur-sm" onclick="toggleFilterSheet()"></div>
+  <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-[2rem] p-6 modal-pop">
+    <div class="w-12 h-1.5 bg-ink/15 rounded-full mx-auto mb-5"></div>
+    <h3 class="font-display font-bold text-lg text-ink">Filters</h3>
+    <div class="mt-5">
+      <p class="text-xs font-extrabold text-ink/50 uppercase tracking-wide mb-2">Max price: <span id="m-price-label" class="text-cherry">₹2000</span></p>
+      <input id="m-price-range" type="range" min="100" max="2000" value="2000" step="50" class="w-full accent-cherry"
+        oninput="document.getElementById('m-price-label').textContent=rupee(this.value);document.getElementById('price-range').value=this.value;document.getElementById('price-label').textContent=rupee(this.value)"/>
+    </div>
+    <label class="flex items-center gap-2.5 mt-5"><input id="m-best-only" type="checkbox" class="w-4 h-4 accent-cherry" onchange="document.getElementById('best-only').checked=this.checked"/><span class="text-sm font-bold text-ink/70">Bestsellers only 🔥</span></label>
+    <label class="flex items-center gap-2.5 mt-3"><input id="m-offer-only" type="checkbox" class="w-4 h-4 accent-cherry" onchange="document.getElementById('offer-only').checked=this.checked"/><span class="text-sm font-bold text-ink/70">On offer</span></label>
+    <button onclick="render();toggleFilterSheet()" class="mt-6 w-full bg-cherry text-white font-extrabold rounded-2xl py-3.5 active:scale-[.98] transition-transform">Apply filters</button>
+  </div>
+</div>
+
+<div id="app-footer"></div>
+<div id="app-bottomnav"></div>
+<div id="app-whatsapp"></div>
+
+<script>
+  bootShell({ activeTab: "categories", search: true });
+
+  const params = new URLSearchParams(location.search);
+  let activeCat = params.get("cat") || "all";
+  let query = (params.get("q") || "").toLowerCase();
+  let foodFilter = Store.get("dittomart_food_type_filter", "all");
+
+  function chips() {
+    const all = [{ slug: "all", name: "All", icon: "paw-print", color: "#23262F" }, ...CATEGORIES];
+    document.getElementById("cat-chips").innerHTML = all.map(c => `
+      <button onclick="setCat('${c.slug}')" class="shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-extrabold border-2 transition-all active:scale-95 ${activeCat === c.slug ? "bg-cherry border-cherry text-white shadow-lg shadow-cherry/25" : "bg-white border-ink/10 text-ink/70 hover:border-cherry/50"}">
+        <i data-lucide="${c.icon}" class="w-3.5 h-3.5"></i>${c.name}
+      </button>`).join("");
+    const fts = [["all","All"],["veg","🟢 Veg"],["non-veg","🔴 Non-Veg"],["other","🟡 Other"]];
+    document.getElementById("food-chips").innerHTML =
+      `<span class="text-xs font-extrabold text-ink/50 self-center mr-2 uppercase tracking-wide">Food Filter:</span>` +
+      fts.map(([v,l]) => `<button onclick="setFood('${v}')" class="px-4 py-2 rounded-xl text-[11px] font-extrabold border transition-all active:scale-95 ${foodFilter===v?"bg-ink text-cream border-ink shadow-md shadow-ink/20":"bg-white border-ink/10 text-ink/60 hover:bg-cream-deep"}">${l}</button>`).join("");
+    lucide.createIcons();
+  }
+  function setCat(slug) { activeCat = slug; query = ""; history.replaceState(null, "", slug === "all" ? "category.html" : "category.html?cat=" + slug); chips(); updateTitle(); render(); }
+  function setFood(v) { foodFilter = v; Store.set("dittomart_food_type_filter", v); chips(); render(); }
+  function resetFilters() {
+    ["best-only","offer-only","m-best-only","m-offer-only"].forEach(id=>{const el=document.getElementById(id); if(el) el.checked=false;});
+    ["price-range","m-price-range"].forEach(id=>{const el=document.getElementById(id); if(el) el.value=2000;});
+    document.getElementById("price-label").textContent="₹2,000";
+    foodFilter="all"; Store.set("dittomart_food_type_filter","all");
+    chips(); render();
+  }
+  function updateTitle() {
+    const c = getCategory(activeCat);
+    document.getElementById("page-title").textContent = query ? `Results for “${query}”` : (c ? c.name : "All products");
+    document.getElementById("crumb").textContent = c ? "Shop / " + c.name : "Shop";
+  }
+  function toggleFilterSheet() { document.getElementById("filter-sheet").classList.toggle("hidden"); }
+
+  function render() {
+    let list = PRODUCTS.slice();
+    if (activeCat !== "all") list = list.filter(p => p.cat === activeCat);
+    if (query) list = list.filter(p => (p.name + " " + p.desc).toLowerCase().includes(query));
+    if (foodFilter !== "all") list = list.filter(p => p.edible && p.foodType === foodFilter);
+    const maxP = +document.getElementById("price-range").value;
+    list = list.filter(p => p.price <= maxP);
+    if (document.getElementById("best-only").checked) list = list.filter(p => p.bestseller);
+    if (document.getElementById("offer-only").checked) list = list.filter(p => p.mrp > p.price);
+    const sort = document.getElementById("sort").value;
+    if (sort === "plh") list.sort((a,b)=>a.price-b.price);
+    else if (sort === "phl") list.sort((a,b)=>b.price-a.price);
+    else if (sort === "rate") list.sort((a,b)=>b.rating-a.rating);
+    else list.sort((a,b)=>b.orders-a.orders);
+
+    document.getElementById("result-count").textContent = list.length;
+    const grid = document.getElementById("grid"), empty = document.getElementById("empty");
+    if (!list.length) { grid.classList.add("hidden"); empty.classList.remove("hidden"); return; }
+    empty.classList.add("hidden"); grid.classList.remove("hidden");
+    grid.innerHTML = list.map((p, i) => productCard(p, Math.min(i, 8) * 40)).join("");
+    lucide.createIcons();
+    initReveal();
+  }
+
+  chips(); updateTitle();
+  swapSkeleton("skeleton", "grid", 550);
+  setTimeout(render, 560);
+
+  setTimeout(() => {
+    const s = document.getElementById("hdr-search");
+    if (s) { s.value = query; let t;
+      s.addEventListener("input", () => { clearTimeout(t); t = setTimeout(() => { query = s.value.trim().toLowerCase(); updateTitle(); render(); }, 350); });
+    }
+  }, 120);
+</script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>My Profile — Best For Pets</title>
+<link rel="icon" type="image/png" href="assets/images/logo.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="assets/images/logo.png"/>
+<link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.png"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{cherry:'#E63946','cherry-dark':'#C42B38',ink:'#23262F',cream:'#FFF6EC','cream-deep':'#FBEBDB',blush:'#FFE3D2',teal:'#0E9594',amber:'#FFB627'},fontFamily:{display:['Fraunces','serif']}}}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/animations.js"></script>
+<script>locationGate();</script>
+</head>
+<body>
+<div id="app-header"></div>
+
+<main class="pt-24 sm:pt-20 pb-24 lg:pb-12 max-w-5xl mx-auto px-4 lg:px-8">
+  <!-- profile hero -->
+  <div class="bg-ink rounded-[2.5rem] p-7 sm:p-9 mt-4 relative overflow-hidden">
+    <div class="blob absolute -top-12 -right-12 w-56 h-56 bg-cherry/25"></div>
+    <div class="blob absolute -bottom-16 -left-10 w-56 h-56 bg-teal/20" style="animation-delay:-4s"></div>
+    <div class="relative z-10 flex flex-wrap items-center gap-5">
+      <div class="w-20 h-20 rounded-3xl bg-amber grid place-items-center text-4xl shadow-lg">🐶</div>
+      <div class="flex-1 min-w-[180px]">
+        <h1 class="font-display font-black text-2xl sm:text-3xl text-cream" id="p-name">Guest</h1>
+        <p class="text-cream/55 text-sm font-bold mt-1" id="p-phone">Not logged in</p>
+      </div>
+      <div id="auth-zone"></div>
+    </div>
+    <div class="relative z-10 grid grid-cols-3 gap-3 mt-7">
+      <div class="bg-white/10 backdrop-blur rounded-2xl p-4 text-center"><p class="font-display font-black text-cream text-2xl" id="stat-orders">0</p><p class="text-cream/50 text-[10px] font-extrabold uppercase tracking-wider mt-0.5">Orders</p></div>
+      <div class="bg-white/10 backdrop-blur rounded-2xl p-4 text-center"><p class="font-display font-black text-amber text-2xl" id="stat-saved">₹0</p><p class="text-cream/50 text-[10px] font-extrabold uppercase tracking-wider mt-0.5">Saved</p></div>
+      <div class="bg-white/10 backdrop-blur rounded-2xl p-4 text-center"><p class="font-display font-black text-cream text-2xl" id="stat-favs">0</p><p class="text-cream/50 text-[10px] font-extrabold uppercase tracking-wider mt-0.5">Favorites</p></div>
+    </div>
+  </div>
+
+  <!-- wallet -->
+  <div class="bg-gradient-to-r from-amber to-[#E8A012] rounded-[2rem] p-6 mt-5 flex items-center gap-4 shadow-lg shadow-amber/20">
+    <div class="w-12 h-12 rounded-2xl bg-white/25 grid place-items-center shrink-0"><i data-lucide="wallet" class="w-6 h-6 text-ink"></i></div>
+    <div class="flex-1"><p class="text-ink/70 text-[10px] font-extrabold uppercase tracking-widest">Paw Wallet</p><p class="font-display font-black text-ink text-2xl">₹150</p></div>
+    <span class="text-[10px] font-extrabold bg-ink text-cream px-3 py-1.5 rounded-full">Welcome credit 🎁</span>
+  </div>
+
+  <!-- favorite orders -->
+  <section class="mt-8">
+    <div class="flex items-center justify-between">
+      <h2 class="font-display font-black text-xl text-ink flex items-center gap-2">⭐ Favorite orders</h2>
+      <span class="text-[11px] font-extrabold text-ink/40">1-tap reorder</span>
+    </div>
+    <div id="fav-list" class="mt-4 space-y-3.5"></div>
+  </section>
+
+  <!-- menu -->
+  <section class="mt-8 grid sm:grid-cols-2 gap-3.5">
+    <a href="orders.html" class="menu-card"><div class="mi bg-cherry/10"><i data-lucide="package" class="w-5 h-5 text-cherry"></i></div><div><p class="font-extrabold text-ink text-sm">My orders</p><p class="text-[11px] font-bold text-ink/45 mt-0.5">History, tracking & reorders</p></div><i data-lucide="chevron-right" class="w-4 h-4 text-ink/30 ml-auto"></i></a>
+    <a href="address.html" class="menu-card"><div class="mi bg-teal/10"><i data-lucide="map-pin" class="w-5 h-5 text-teal"></i></div><div><p class="font-extrabold text-ink text-sm">Saved addresses</p><p class="text-[11px] font-bold text-ink/45 mt-0.5" id="addr-count">0 saved</p></div><i data-lucide="chevron-right" class="w-4 h-4 text-ink/30 ml-auto"></i></a>
+    <a href="coupon.html" class="menu-card"><div class="mi bg-amber/15"><i data-lucide="ticket-percent" class="w-5 h-5 text-amber"></i></div><div><p class="font-extrabold text-ink text-sm">Offers & coupons</p><p class="text-[11px] font-bold text-ink/45 mt-0.5">3 active deals</p></div><i data-lucide="chevron-right" class="w-4 h-4 text-ink/30 ml-auto"></i></a>
+    <a href="location.html" class="menu-card"><div class="mi bg-blush"><i data-lucide="navigation" class="w-5 h-5 text-cherry"></i></div><div><p class="font-extrabold text-ink text-sm">Change location</p><p class="text-[11px] font-bold text-ink/45 mt-0.5" id="loc-line">—</p></div><i data-lucide="chevron-right" class="w-4 h-4 text-ink/30 ml-auto"></i></a>
+    <a href="https://wa.me/918939787787?text=Hi, I have a question about my order" target="_blank" class="menu-card"><div class="mi bg-teal/10"><i data-lucide="message-circle" class="w-5 h-5 text-teal"></i></div><div><p class="font-extrabold text-ink text-sm">WhatsApp support</p><p class="text-[11px] font-bold text-ink/45 mt-0.5">+91 89397 87787</p></div><i data-lucide="chevron-right" class="w-4 h-4 text-ink/30 ml-auto"></i></a>
+    <a href="tel:+918939787787" class="menu-card"><div class="mi bg-cherry/10"><i data-lucide="phone" class="w-5 h-5 text-cherry"></i></div><div><p class="font-extrabold text-ink text-sm">Call store</p><p class="text-[11px] font-bold text-ink/45 mt-0.5">8 AM – 10 PM daily</p></div><i data-lucide="chevron-right" class="w-4 h-4 text-ink/30 ml-auto"></i></a>
+  </section>
+</main>
+
+<div id="app-footer"></div>
+<div id="app-bottomnav"></div>
+<div id="app-whatsapp"></div>
+
+<style>
+.menu-card{display:flex;align-items:center;gap:1rem;background:#fff;border:1px solid rgba(35,38,47,.06);border-radius:1.5rem;padding:1.1rem 1.25rem;transition:.2s}
+.menu-card:hover{border-color:rgba(230,57,70,.3);transform:translateY(-2px);box-shadow:0 12px 28px -14px rgba(35,38,47,.18)}
+.mi{width:44px;height:44px;border-radius:1rem;display:grid;place-items:center;flex-shrink:0}
+</style>
+
+<script>
+bootShell({activeTab:'profile'});
+
+const user = Store.get('dittomart_user');
+const orders = Store.get('dittomart_orders') || [];
+const favs = Store.get('dittomart_favorites') || [];
+const addrs = Store.get('dittomart_addresses') || [];
+const loc = Store.get('dittomart_location');
+
+if(user && user.loggedIn){
+  document.getElementById('p-name').textContent = user.name || 'Pet Parent';
+  document.getElementById('p-phone').textContent = '+91 ' + user.phone;
+  document.getElementById('auth-zone').innerHTML = `<button onclick="logout()" class="bg-white/10 hover:bg-white/20 text-cream text-xs font-extrabold px-5 py-3 rounded-full transition flex items-center gap-1.5"><i data-lucide="log-out" class="w-3.5 h-3.5"></i>Logout</button>`;
+}else{
+  document.getElementById('auth-zone').innerHTML = `<a href="login.html?next=profile.html" class="btn-shine bg-cherry text-white text-sm font-extrabold px-6 py-3.5 rounded-full hover:bg-cherry-dark transition flex items-center gap-2"><i data-lucide="log-in" class="w-4 h-4"></i>Login / Sign up</a>`;
+}
+
+document.getElementById('stat-orders').textContent = orders.length;
+document.getElementById('stat-favs').textContent = favs.length;
+const totalSaved = orders.reduce((s,o)=>s + (o.disc||0) + (o.del===0?49:0), 0);
+document.getElementById('stat-saved').textContent = rupee(totalSaved);
+document.getElementById('addr-count').textContent = addrs.length + ' saved';
+if(loc) document.getElementById('loc-line').textContent = 'Delivering to ' + loc.area.split(',')[0];
+
+/* favorites */
+const fl = document.getElementById('fav-list');
+if(!favs.length){
+  fl.innerHTML = `<div class="bg-blush/40 rounded-3xl p-6 text-center"><p class="text-2xl">💛</p><p class="text-sm font-extrabold text-ink mt-2">No favorite orders yet</p><p class="text-xs font-bold text-ink/50 mt-1">After your next order, tap "Save to favorites" for instant reorders.</p></div>`;
+}else{
+  fl.innerHTML = favs.map((f,idx)=>`
+    <div class="bg-white rounded-3xl border border-ink/5 p-5 flex flex-wrap items-center gap-4">
+      <div class="flex -space-x-3">${f.items.slice(0,3).map(i=>`<img src="${i.image}" class="w-12 h-12 rounded-2xl object-cover bg-cream-deep border-2 border-white"/>`).join('')}</div>
+      <div class="flex-1 min-w-[140px]">
+        <p class="text-sm font-extrabold text-ink truncate">${f.items.map(i=>i.name).join(' · ')}</p>
+        <p class="text-[11px] font-bold text-ink/45 mt-0.5">${f.items.reduce((n,i)=>n+i.qty,0)} items · ${rupee(f.total)} · saved ${f.date}</p>
+      </div>
+      <button onclick="reorderFav(${idx})" class="btn-shine bg-cherry text-white text-xs font-extrabold px-5 py-3 rounded-full hover:bg-cherry-dark active:scale-95 transition flex items-center gap-1.5"><i data-lucide="repeat" class="w-3.5 h-3.5"></i>Reorder</button>
+    </div>`).join('');
+}
+function reorderFav(idx){
+  const f = favs[idx];
+  const items = Cart.items();
+  f.items.forEach(i=>{
+    const found = items.find(x=>x.key===i.key);
+    if(found) found.qty += i.qty; else items.push({...i});
+  });
+  Cart.save(items);
+  toast('Favorite refilled to cart! 🛒','heart');
+  setTimeout(()=>location.href='cart.html', 700);
+}
+function logout(){
+  Store.del('dittomart_user');
+  toast('Logged out. See you soon! 👋','log-out');
+  setTimeout(()=>location.reload(), 700);
+}
+
+lucide.createIcons();
+</script>
+</body>
+</html>

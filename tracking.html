@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Track order — Best For Pets</title>
+<link rel="icon" type="image/png" href="assets/images/logo.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="assets/images/logo.png"/>
+<link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.png"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{cherry:'#E63946','cherry-dark':'#C42B38',ink:'#23262F',cream:'#FFF6EC','cream-deep':'#FBEBDB',blush:'#FFE3D2',teal:'#0E9594',amber:'#FFB627'},fontFamily:{display:['Fraunces','serif']}}}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/animations.js"></script>
+<script>locationGate();</script>
+</head>
+<body>
+<div id="app-header"></div>
+
+<main class="pt-24 sm:pt-20 pb-24 lg:pb-12 max-w-5xl mx-auto px-4 lg:px-8">
+  <div class="flex flex-wrap items-center justify-between gap-3 mt-3">
+    <div>
+      <h1 class="font-display font-black text-3xl text-ink">Live tracking 📡</h1>
+      <p class="text-sm font-bold text-ink/50 mt-1">Order <span class="text-ink" id="t-id">—</span> · placed <span id="t-time">—</span></p>
+    </div>
+    <span id="status-pill" class="bg-amber/20 text-ink text-xs font-extrabold px-4 py-2 rounded-full flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber animate-pulse"></span><span id="status-text">Placed</span></span>
+  </div>
+
+  <div class="lg:grid lg:grid-cols-12 lg:gap-8 mt-7">
+    <!-- timeline -->
+    <section class="lg:col-span-5">
+      <div class="bg-white rounded-[2rem] border border-ink/5 p-6">
+        <div id="timeline" class="relative"></div>
+      </div>
+
+      <!-- delivered reorder CTA -->
+      <div id="reorder-cta" class="hidden mt-5 bg-gradient-to-r from-teal to-[#0B7B7A] rounded-[2rem] p-6 text-white text-center shadow-xl shadow-teal/20">
+        <p class="text-3xl">🎊</p>
+        <h3 class="font-display font-black text-xl mt-2">Delivered! Pet happy?</h3>
+        <p class="text-white/75 text-xs font-bold mt-1.5">Reorder this exact basket any time, in one tap.</p>
+        <button onclick="reorder()" class="btn-shine mt-4 bg-white text-teal font-extrabold px-7 py-3.5 rounded-full hover:scale-105 active:scale-95 transition flex items-center gap-2 mx-auto"><i data-lucide="repeat" class="w-4 h-4"></i>Reorder in 1 tap</button>
+      </div>
+    </section>
+
+    <!-- right: map + partner + items -->
+    <section class="lg:col-span-7 mt-6 lg:mt-0 space-y-5">
+      <!-- map placeholder -->
+      <div class="rounded-[2rem] overflow-hidden border border-ink/5 relative h-56 sm:h-64 bg-gradient-to-br from-teal/15 via-cream-deep to-blush">
+        <div class="absolute inset-0 opacity-30" style="background-image:repeating-linear-gradient(0deg,transparent,transparent 23px,#23262F12 24px),repeating-linear-gradient(90deg,transparent,transparent 23px,#23262F12 24px)"></div>
+        <svg class="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 400 240"><path d="M40,200 C120,180 150,90 220,80 S340,60 360,40" fill="none" stroke="#E63946" stroke-width="3" stroke-dasharray="8 7" stroke-linecap="round" opacity=".5"/></svg>
+        <div class="absolute left-[8%] bottom-[14%] text-center"><div class="w-10 h-10 rounded-full bg-white shadow-lg grid place-items-center"><span class="text-lg">🏪</span></div><span class="text-[9px] font-extrabold text-ink/60 bg-white/80 rounded-full px-2 mt-1 inline-block">Store</span></div>
+        <div class="absolute right-[6%] top-[10%] text-center"><div class="w-10 h-10 rounded-full bg-white shadow-lg grid place-items-center"><i data-lucide="map-pin" class="w-5 h-5 text-cherry map-pin-drop"></i></div><span class="text-[9px] font-extrabold text-ink/60 bg-white/80 rounded-full px-2 mt-1 inline-block">You</span></div>
+        <div class="bike-move absolute bottom-[30%] text-2xl">🛵</div>
+        <span class="absolute bottom-2 right-3 text-[9px] font-extrabold text-ink/40">live map preview</span>
+      </div>
+
+      <!-- partner -->
+      <div class="bg-ink rounded-[2rem] p-6 flex items-center gap-4 relative overflow-hidden">
+        <div class="absolute -right-6 -top-6 w-28 h-28 bg-cherry/25 rounded-full blur-2xl"></div>
+        <div class="w-14 h-14 rounded-2xl bg-amber grid place-items-center text-2xl shrink-0">🧑</div>
+        <div class="flex-1 min-w-0">
+          <p class="text-cream font-extrabold">Saravanan K</p>
+          <p class="text-cream/55 text-xs font-bold mt-0.5">Your delivery partner · ⭐ 4.9 · 2,100+ deliveries</p>
+        </div>
+        <a href="tel:+918939787787" class="w-12 h-12 rounded-full bg-teal grid place-items-center hover:brightness-110 transition shrink-0"><i data-lucide="phone" class="w-5 h-5 text-white"></i></a>
+      </div>
+
+      <!-- items -->
+      <div class="bg-white rounded-[2rem] border border-ink/5 p-6">
+        <h3 class="font-display font-bold text-ink flex items-center gap-2"><i data-lucide="package-open" class="w-4 h-4 text-cherry"></i>In this order</h3>
+        <div id="t-items" class="mt-4 space-y-3"></div>
+        <div class="border-t border-dashed border-ink/10 mt-4 pt-3 flex justify-between font-extrabold text-ink"><span>Total paid</span><span id="t-total">—</span></div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<div id="app-footer"></div>
+<div id="app-bottomnav"></div>
+<div id="app-whatsapp"></div>
+
+<style>
+.tl-step{display:flex;gap:1rem;position:relative;padding-bottom:2.1rem}
+.tl-step:last-child{padding-bottom:0}
+.tl-step::before{content:'';position:absolute;left:17px;top:38px;bottom:2px;width:2px;background:rgba(35,38,47,.1);border-radius:2px}
+.tl-step:last-child::before{display:none}
+.tl-step.done::before{background:#0E9594}
+.tl-dot{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;background:#FBEBDB;color:rgba(35,38,47,.35);transition:.4s;z-index:1}
+.tl-step.done .tl-dot{background:#0E9594;color:#fff}
+.tl-step.active .tl-dot{background:#E63946;color:#fff;box-shadow:0 0 0 6px rgba(230,57,70,.15);animation:dotGlow 1.6s ease-in-out infinite}
+.tl-step.active .tl-title{color:#E63946}
+</style>
+
+<script>
+bootShell({activeTab:'orders'});
+
+const order = Store.get('dittomart_active_order');
+if(!order){ location.href = 'orders.html'; }
+
+document.getElementById('t-id').textContent = order.id;
+document.getElementById('t-time').textContent = order.time + ', ' + order.date;
+document.getElementById('t-total').textContent = rupee(order.total);
+document.getElementById('t-items').innerHTML = order.items.map(i=>`
+  <div class="flex items-center gap-3">
+    <img src="${i.image}" alt="" class="w-12 h-12 rounded-xl object-cover bg-cream-deep"/>
+    <div class="flex-1 min-w-0"><p class="text-sm font-extrabold text-ink truncate">${i.name}</p><p class="text-[11px] font-bold text-ink/45">${i.variant} × ${i.qty}</p></div>
+    <p class="text-sm font-extrabold text-ink">${rupee(i.price*i.qty)}</p>
+  </div>`).join('');
+
+const STEPS = [
+  { name:'Order placed',       icon:'receipt',     sub:'We received your order' },
+  { name:'Store accepted',     icon:'store',       sub:'Best For Pets confirmed it' },
+  { name:'Packed with care',   icon:'package',     sub:'Treats sealed & ready 🐾' },
+  { name:'Out for delivery',   icon:'bike',        sub:'Saravanan is on the way' },
+  { name:'Delivered',          icon:'party-popper',sub:'Enjoy! Tail wags incoming' }
+];
+
+// resume progress based on elapsed time since placed (5s per step in demo)
+let current = Math.min(Math.floor((Date.now() - order.placedAt) / 5000), STEPS.length - 1);
+if(order.status === 'Delivered') current = STEPS.length - 1;
+
+function renderTimeline(){
+  document.getElementById('timeline').innerHTML = STEPS.map((s,i)=>{
+    const cls = i < current ? 'done' : i === current ? (current === STEPS.length-1 ? 'done' : 'active') : '';
+    return `<div class="tl-step ${cls}">
+      <div class="tl-dot ${i===current && current!==STEPS.length-1?'track-dot-active':''}"><i data-lucide="${s.icon}" class="w-4 h-4"></i></div>
+      <div class="pt-1">
+        <p class="tl-title font-extrabold text-sm ${i<=current?'text-ink':'text-ink/35'}">${s.name}</p>
+        <p class="text-[11px] font-bold ${i<=current?'text-ink/50':'text-ink/25'} mt-0.5">${s.sub}</p>
+      </div>
+      ${i<current || (i===current && current===STEPS.length-1) ? '<span class="ml-auto text-teal mt-1"><i data-lucide="check-circle-2" class="w-4 h-4"></i></span>':''}
+    </div>`;
+  }).join('');
+  const labels = ['Placed','Accepted','Packed','Out for delivery','Delivered'];
+  document.getElementById('status-text').textContent = labels[current];
+  const pill = document.getElementById('status-pill');
+  if(current === STEPS.length-1){
+    pill.className = 'bg-teal/15 text-teal text-xs font-extrabold px-4 py-2 rounded-full flex items-center gap-1.5';
+    pill.innerHTML = '<i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>Delivered';
+    document.getElementById('reorder-cta').classList.remove('hidden');
+    order.status = 'Delivered';
+    const orders = (Store.get('dittomart_orders')||[]).map(o=>o.id===order.id?{...o,status:'Delivered'}:o);
+    Store.set('dittomart_orders', orders);
+    Store.set('dittomart_active_order', order);
+  }
+  lucide.createIcons();
+}
+renderTimeline();
+
+const tick = setInterval(()=>{
+  if(current >= STEPS.length-1){ clearInterval(tick); return; }
+  current++;
+  renderTimeline();
+  if(current === STEPS.length-1){ fireConfetti(2000); clearInterval(tick); }
+}, 5000);
+
+function reorder(){
+  const items = Cart.items();
+  order.items.forEach(i=>{
+    const found = items.find(x=>x.key===i.key);
+    if(found) found.qty += i.qty; else items.push({...i});
+  });
+  Cart.save(items);
+  toast('Cart refilled! 🛒','repeat');
+  setTimeout(()=>location.href='cart.html', 700);
+}
+</script>
+</body>
+</html>

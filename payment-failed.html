@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Payment failed — Best For Pets</title>
+<link rel="icon" type="image/png" href="assets/images/logo.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="assets/images/logo.png"/>
+<link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.png"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{cherry:'#E63946','cherry-dark':'#C42B38',ink:'#23262F',cream:'#FFF6EC','cream-deep':'#FBEBDB',blush:'#FFE3D2',teal:'#0E9594',amber:'#FFB627'},fontFamily:{display:['Fraunces','serif']}}}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/animations.js"></script>
+<script>locationGate();</script>
+</head>
+<body class="min-h-screen grid place-items-center px-5 relative overflow-hidden">
+<div class="blob absolute -top-20 -right-20 w-72 h-72 bg-blush"></div>
+
+<div class="relative z-10 text-center max-w-md w-full bg-white rounded-[2.5rem] shadow-xl border border-ink/5 p-8 sm:p-10">
+  <div class="w-20 h-20 mx-auto rounded-full bg-cherry/10 grid place-items-center">
+    <span class="text-4xl">😿</span>
+  </div>
+  <h1 class="font-display font-black text-2xl text-ink mt-5">Payment failed</h1>
+  <p class="text-sm font-bold text-ink/50 mt-2">Don't worry — no money was deducted. If anything was, it will be auto-refunded in 3–5 business days.</p>
+
+  <div class="bg-cream rounded-2xl p-4 mt-5 text-left flex items-start gap-3">
+    <i data-lucide="info" class="w-4 h-4 text-amber shrink-0 mt-0.5"></i>
+    <p class="text-xs font-bold text-ink/60">Common causes: bank server busy, incorrect OTP, or weak network. Your cart is safe — just retry.</p>
+  </div>
+
+  <div class="flex flex-col gap-3 mt-6">
+    <a href="payment.html" class="btn-shine bg-cherry text-white font-extrabold py-4 rounded-2xl hover:bg-cherry-dark active:scale-[0.98] transition flex items-center justify-center gap-2"><i data-lucide="rotate-ccw" class="w-4 h-4"></i>Retry payment</a>
+    <a href="payment.html" class="bg-cream-deep text-ink font-extrabold py-4 rounded-2xl hover:bg-blush transition">Change payment method</a>
+    <a href="cart.html" class="text-xs font-extrabold text-ink/50 hover:text-ink transition py-1">Back to cart</a>
+  </div>
+
+  <a href="https://wa.me/918939787787?text=Hi, my payment failed and I need help" target="_blank" class="inline-flex items-center gap-1.5 text-[11px] font-extrabold text-teal hover:underline mt-5"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i>Need help? WhatsApp us</a>
+</div>
+
+<script>
+bootShell({activeTab:'cart', minimal:true});
+lucide.createIcons();
+</script>
+</body>
+</html>

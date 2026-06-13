@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Processing payment — Best For Pets</title>
+<link rel="icon" type="image/png" href="assets/images/logo.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="assets/images/logo.png"/>
+<link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.png"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{cherry:'#E63946','cherry-dark':'#C42B38',ink:'#23262F',cream:'#FFF6EC','cream-deep':'#FBEBDB',blush:'#FFE3D2',teal:'#0E9594',amber:'#FFB627'},fontFamily:{display:['Fraunces','serif']}}}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/animations.js"></script>
+<script>locationGate();</script>
+</head>
+<body class="min-h-screen grid place-items-center px-5 relative overflow-hidden">
+<div class="blob absolute -top-20 -left-20 w-72 h-72 bg-blush"></div>
+<div class="blob absolute -bottom-20 -right-20 w-72 h-72 bg-teal/15" style="animation-delay:-4s"></div>
+
+<div class="relative z-10 text-center max-w-sm w-full">
+  <div class="relative w-28 h-28 mx-auto">
+    <div class="spin-ring absolute inset-0 rounded-full border-4 border-cream-deep border-t-cherry"></div>
+    <div class="absolute inset-0 grid place-items-center text-4xl">🐾</div>
+  </div>
+  <h1 class="font-display font-black text-2xl text-ink mt-7" id="msg">Contacting your bank…</h1>
+  <p class="text-sm font-bold text-ink/50 mt-2">Please don't press back or refresh.</p>
+  <div class="mt-7 h-2.5 bg-cream-deep rounded-full overflow-hidden">
+    <div class="progress-fill h-full bg-gradient-to-r from-cherry via-amber to-teal rounded-full" style="animation-duration:3s"></div>
+  </div>
+  <div class="mt-6 inline-flex items-center gap-2 bg-white rounded-full px-4 py-2 shadow-sm">
+    <i data-lucide="shield-check" class="w-4 h-4 text-teal"></i>
+    <span class="text-[11px] font-extrabold text-ink/60">Secured · 256-bit encryption</span>
+  </div>
+</div>
+
+<script>
+const pending = Store.get('dittomart_pending_payment');
+if(!pending){ location.href = 'cart.html'; }
+
+const msgs = ['Contacting your bank…','Verifying payment…','Confirming with store…'];
+let mi = 0;
+const mt = setInterval(()=>{ mi = Math.min(mi+1, msgs.length-1); document.getElementById('msg').textContent = msgs[mi]; }, 1100);
+
+setTimeout(()=>{
+  clearInterval(mt);
+  location.href = Math.random() < 0.8 ? 'order-success.html' : 'payment-failed.html';
+}, 3000);
+
+lucide.createIcons();
+</script>
+</body>
+</html>

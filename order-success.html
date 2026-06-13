@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Order placed! — Best For Pets</title>
+<link rel="icon" type="image/png" href="assets/images/logo.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="assets/images/logo.png"/>
+<link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.png"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{cherry:'#E63946','cherry-dark':'#C42B38',ink:'#23262F',cream:'#FFF6EC','cream-deep':'#FBEBDB',blush:'#FFE3D2',teal:'#0E9594',amber:'#FFB627'},fontFamily:{display:['Fraunces','serif']}}}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/animations.js"></script>
+<script>locationGate();</script>
+</head>
+<body>
+<div id="app-header"></div>
+
+<main class="pt-24 sm:pt-20 pb-24 lg:pb-12 max-w-3xl mx-auto px-4 lg:px-8">
+  <div class="text-center mt-6">
+    <div class="relative inline-block">
+      <div class="w-24 h-24 mx-auto rounded-full bg-teal grid place-items-center shadow-xl shadow-teal/30">
+        <i data-lucide="check" class="w-12 h-12 text-white" style="stroke-width:3.5"></i>
+      </div>
+      <span class="absolute -top-2 -right-3 text-3xl wiggle inline-block">🎉</span>
+      <span class="absolute -bottom-1 -left-4 text-2xl float-slow inline-block">🐾</span>
+    </div>
+    <h1 class="font-display font-black text-3xl lg:text-4xl text-ink mt-6">Woohoo! Order placed 🥳</h1>
+    <p class="text-sm font-bold text-ink/50 mt-2">Your pet's happiness is officially on the way.</p>
+    <div class="inline-flex items-center gap-2 bg-ink text-cream rounded-full px-5 py-2.5 mt-4">
+      <i data-lucide="package" class="w-4 h-4 text-amber"></i>
+      <span class="font-extrabold tracking-widest text-sm" id="order-id">DM-______</span>
+    </div>
+  </div>
+
+  <!-- ETA -->
+  <div class="bg-gradient-to-r from-cherry to-cherry-dark rounded-[2rem] p-6 mt-8 flex items-center gap-5 text-white shadow-xl shadow-cherry/20">
+    <div class="w-14 h-14 rounded-2xl bg-white/15 backdrop-blur grid place-items-center shrink-0"><i data-lucide="timer" class="w-7 h-7"></i></div>
+    <div>
+      <p class="text-xs font-extrabold uppercase tracking-widest text-white/70">Estimated delivery</p>
+      <p class="font-display font-black text-2xl mt-0.5">30–45 minutes</p>
+    </div>
+    <a href="tracking.html" class="ml-auto btn-shine bg-white text-cherry text-sm font-extrabold px-5 py-3 rounded-full hover:scale-105 active:scale-95 transition shrink-0">Track live →</a>
+  </div>
+
+  <!-- summary -->
+  <div class="bg-white rounded-[2rem] border border-ink/5 p-6 mt-5">
+    <h2 class="font-display font-bold text-ink flex items-center gap-2"><i data-lucide="shopping-bag" class="w-4 h-4 text-cherry"></i>Order summary</h2>
+    <div id="sum-items" class="mt-4 space-y-3"></div>
+    <div class="border-t border-dashed border-ink/10 mt-4 pt-4 space-y-2 text-sm font-bold text-ink/60" id="sum-bill"></div>
+    <div class="flex justify-between font-extrabold text-ink text-lg mt-3"><span>Paid</span><span id="sum-total">—</span></div>
+    <p class="text-[11px] font-bold text-ink/40 mt-2 flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i><span id="sum-addr">—</span></p>
+  </div>
+
+  <!-- save to favorites -->
+  <div id="fav-card" class="bg-amber/15 border-2 border-amber/40 rounded-[2rem] p-6 mt-5 flex flex-col sm:flex-row items-center gap-4">
+    <span class="text-4xl">⭐</span>
+    <div class="flex-1 text-center sm:text-left">
+      <p class="font-display font-bold text-ink">Loved this combo?</p>
+      <p class="text-xs font-bold text-ink/55 mt-1">Save this order to favorites for instant 1-tap reorder next time.</p>
+    </div>
+    <button onclick="saveFav()" id="fav-btn" class="btn-shine bg-ink text-cream text-sm font-extrabold px-6 py-3.5 rounded-full hover:bg-ink/85 active:scale-95 transition flex items-center gap-2 shrink-0"><i data-lucide="heart" class="w-4 h-4"></i>Save to favorites</button>
+  </div>
+
+  <!-- rate later -->
+  <div class="bg-white rounded-[2rem] border border-ink/5 p-5 mt-5 text-center">
+    <p class="text-xs font-bold text-ink/50">💛 We'd love your feedback after delivery — a rating prompt will appear once your order arrives.</p>
+  </div>
+
+  <div class="flex flex-col sm:flex-row gap-3 mt-7">
+    <a href="tracking.html" class="btn-shine flex-1 bg-cherry text-white font-extrabold py-4 rounded-2xl hover:bg-cherry-dark transition text-center flex items-center justify-center gap-2"><i data-lucide="radar" class="w-4 h-4"></i>Track order</a>
+    <a href="home.html" class="flex-1 bg-white border-2 border-ink/10 text-ink font-extrabold py-4 rounded-2xl hover:border-cherry transition text-center">Continue shopping</a>
+  </div>
+</main>
+
+<div id="app-footer"></div>
+<div id="app-bottomnav"></div>
+<div id="app-whatsapp"></div>
+
+<script>
+bootShell({activeTab:'orders'});
+
+let order = Store.get('dittomart_active_order');
+const pending = Store.get('dittomart_pending_payment');
+
+if(pending){
+  // build & persist the order exactly once
+  const id = 'DM-' + Math.floor(100000 + Math.random()*900000);
+  const items = Cart.items();
+  const addr = (Store.get('dittomart_addresses')||[]).find(a=>a.id===pending.addressId);
+  order = {
+    id, items, sub: pending.sub, disc: pending.disc, del: pending.del, gst: pending.gst,
+    total: pending.total, method: pending.method, couponCode: pending.couponCode,
+    address: addr || null, status: 'Placed', placedAt: Date.now(),
+    date: new Date().toLocaleDateString('en-IN', {day:'numeric', month:'short', year:'numeric'}),
+    time: new Date().toLocaleTimeString('en-IN', {hour:'2-digit', minute:'2-digit'})
+  };
+  const orders = Store.get('dittomart_orders') || [];
+  orders.unshift(order);
+  Store.set('dittomart_orders', orders);
+  Store.set('dittomart_active_order', order);
+  Cart.clear();
+  Store.del('dittomart_coupon');
+  Store.del('dittomart_pending_payment');
+  updateCartBadges();
+  fireConfetti(2800);
+}
+
+if(!order){ location.href = 'orders.html'; }
+
+document.getElementById('order-id').textContent = order.id;
+document.getElementById('sum-items').innerHTML = order.items.map(i=>`
+  <div class="flex items-center gap-3">
+    <img src="${i.image}" alt="" class="w-12 h-12 rounded-xl object-cover bg-cream-deep"/>
+    <div class="flex-1 min-w-0"><p class="text-sm font-extrabold text-ink truncate">${i.name}</p><p class="text-[11px] font-bold text-ink/45">${i.variant} × ${i.qty}</p></div>
+    <p class="text-sm font-extrabold text-ink">${rupee(i.price * i.qty)}</p>
+  </div>`).join('');
+document.getElementById('sum-bill').innerHTML = `
+  <div class="flex justify-between"><span>Item total</span><span class="text-ink">${rupee(order.sub)}</span></div>
+  ${order.disc?`<div class="flex justify-between text-teal"><span>Coupon ${order.couponCode}</span><span>−${rupee(order.disc)}</span></div>`:''}
+  <div class="flex justify-between"><span>Delivery</span><span class="${order.del?'text-ink':'text-teal'}">${order.del?rupee(order.del):'FREE'}</span></div>
+  <div class="flex justify-between"><span>GST (5%)</span><span class="text-ink">${rupee(order.gst)}</span></div>`;
+document.getElementById('sum-total').textContent = rupee(order.total) + ' · ' + order.method.toUpperCase();
+if(order.address) document.getElementById('sum-addr').textContent = `${order.address.label}: ${order.address.house_no}, ${order.address.street}, ${order.address.city} — ${order.address.pincode}`;
+
+function saveFav(){
+  const favs = Store.get('dittomart_favorites') || [];
+  if(!favs.find(f=>f.id===order.id)){
+    favs.unshift({ id: order.id, items: order.items, total: order.total, date: order.date });
+    Store.set('dittomart_favorites', favs);
+  }
+  const btn = document.getElementById('fav-btn');
+  btn.innerHTML = '<i data-lucide="heart" class="w-4 h-4" style="fill:currentColor"></i>Saved!';
+  btn.classList.add('bg-cherry');
+  toast('Saved to favorites ⭐','heart');
+  lucide.createIcons();
+}
+
+lucide.createIcons();
+</script>
+</body>
+</html>
