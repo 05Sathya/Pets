@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Animations */
+@keyframes blob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(20px); }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes paw-step {
+  0%, 100% { transform: translateX(0) scale(1); opacity: 0.6; }
+  50% { transform: translateX(8px) scale(1.1); opacity: 1; }
+}
+
+.blob {
+  animation: blob 7s infinite;
+  filter: blur(40px);
+}
+
+.float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.paw-step {
+  display: inline-block;
+  animation: paw-step 1.2s ease-in-out infinite;
+}
+
+.paw-step:nth-child(2) { animation-delay: 0.2s; }
+.paw-step:nth-child(3) { animation-delay: 0.4s; }
+.paw-step:nth-child(4) { animation-delay: 0.6s; }
+
+.splash-logo {
+  display: inline-block;
+}
+
+.grad-text {
+  background: linear-gradient(135deg, #E63946, #FFB627);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Additional custom styles from your assets/css/styles.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Manrope', sans-serif;
+  color: #23262F;
+  background-color: #FFF6EC;
+}
+
+/* Responsive utilities */
+@media (max-width: 640px) {
+  .sm\:h-20 {
+    height: 5rem;
+  }
+}
